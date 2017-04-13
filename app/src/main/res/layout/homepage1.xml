@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/home1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SHOULDERS"
+            android:layout_marginTop="38dp"
+            android:layout_marginLeft="20dp"
+            android:clickable="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CHEST"
+            android:layout_marginTop="75dp"
+            android:layout_marginLeft="15dp"
+            android:clickable="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FOREARMS"
+            android:layout_marginTop="108dp"
+            android:layout_marginLeft="6dp"
+            android:clickable="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OBLIQUES"
+            android:layout_marginTop="152dp"
+            android:layout_marginLeft="15dp"
+            android:clickable="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="QUADS"
+            android:layout_marginTop="232dp"
+            android:layout_marginLeft="30dp"
+            android:clickable="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BICEPS"
+            android:layout_marginTop="72dp"
+            android:layout_marginRight="30dp"
+            android:layout_alignParentRight="true"
+            android:clickable="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ABS"
+            android:layout_marginTop="125dp"
+            android:layout_marginRight="40dp"
+            android:layout_alignParentRight="true"
+            android:clickable="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ABDUCTORS"
+            android:layout_marginTop="235dp"
+            android:layout_marginRight="35dp"
+            android:layout_alignParentRight="true"
+            android:clickable="true"/>
+
+
+    </RelativeLayout>
+
+</LinearLayout>
