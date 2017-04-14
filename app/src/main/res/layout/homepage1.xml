@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/content_homepage"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.gofit.MainActivity"
+    >
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="368dp"
+        android:layout_height="495dp"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp">
 
         <ImageView
             android:layout_width="match_parent"
@@ -15,6 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="SHOULDERS"
+            android:id="@+id/shoulder"
             android:layout_marginTop="38dp"
             android:layout_marginLeft="20dp"
             android:clickable="true"/>
@@ -33,7 +42,8 @@
             android:text="FOREARMS"
             android:layout_marginTop="108dp"
             android:layout_marginLeft="6dp"
-            android:clickable="true"/>
+            android:clickable="true"
+            android:id="@+id/textView2" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -55,6 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="BICEPS"
+            android:id="@+id/biceps"
             android:layout_marginTop="72dp"
             android:layout_marginRight="30dp"
             android:layout_alignParentRight="true"
@@ -64,10 +75,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ABS"
-            android:layout_marginTop="125dp"
+            android:id="@+id/abs"
             android:layout_marginRight="40dp"
-            android:layout_alignParentRight="true"
-            android:clickable="true"/>
+            android:clickable="true"
+            android:layout_below="@+id/textView2"
+            android:layout_alignEnd="@+id/textView3" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -76,9 +88,10 @@
             android:layout_marginTop="235dp"
             android:layout_marginRight="35dp"
             android:layout_alignParentRight="true"
-            android:clickable="true"/>
+            android:clickable="true"
+            android:id="@+id/textView3" />
 
 
     </RelativeLayout>
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

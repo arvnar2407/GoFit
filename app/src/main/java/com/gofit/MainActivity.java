@@ -1,8 +1,10 @@
 package com.gofit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -13,7 +15,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
+import com.google.android.gms.vision.text.Text;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -52,18 +58,64 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         DatabaseReference childRef = FirebaseDatabase.getInstance().getReference().child("exercisedata").getRef();
-
+        final ExerciseData data;
+        final ArrayList shoulder = new ArrayList();
+        final ArrayList biceps = new ArrayList();
+        final ArrayList abs = new ArrayList();
         childRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.d("ins","ins");
                 HashMap map = (HashMap) dataSnapshot.getValue();
-                map.get(0);
+                Iterator it = map.entrySet().iterator();
+                while (it.hasNext()) {
+                    Map.Entry pair = (Map.Entry)it.next();
+
+                    if(pair.getKey().equals("shoulder"))
+                    {
+                        shoulder.add(pair.getValue());
+                    }
+                    else if(pair.getKey().equals("biceps"))
+                    {
+                        biceps.add(pair.getValue());
+                    }
+                    else if(pair.getKey().equals("abs"))
+                    {
+                        abs.add(pair.getValue());
+                    }
+
+                    it.remove(); // avoids a ConcurrentModificationException
+                }
+
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.d("err","err");
+            }
+        });
+        TextView shoulderView = (TextView) findViewById(R.id.shoulder);
+        TextView absView = (TextView) findViewById(R.id.abs);
+        TextView bicepsView = (TextView) findViewById(R.id.biceps);
+        shoulderView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),ExerciseListActivity.class);
+                intent.putExtra("shoulder",shoulder);
+                startActivity(intent);
+
+            }
+        });
+        absView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        bicepsView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
@@ -118,6 +170,12 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_send) {
 
+        }
+        else if (id == R.id.logout) {
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            auth.signOut();
+            Intent intent = new Intent(this,LoginActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

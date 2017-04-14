@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Button createButton = (Button) findViewById(R.id.button);
+        Button createButton = (Button) findViewById(R.id.btn_signup);
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
