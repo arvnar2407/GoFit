@@ -56,8 +56,8 @@ public class ViewPagerActivity extends AppCompatActivity {
             switch(pos) {
 
                 case 0: return ImageFragment.newInstance(selectedList);
-//                case 1: return VideoFragment.newInstance("SecondFragment, Instance 1");
-//                case 2: return DescriptionFragment.newInstance("ThirdFragment, Instance 1");
+                case 1: return VideoFragment.newInstance(selectedList);
+                case 2: return DescriptionFragment.newInstance(selectedList);
 
                 default: return ImageFragment.newInstance(selectedList);
             }
