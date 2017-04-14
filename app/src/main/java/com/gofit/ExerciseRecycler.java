@@ -1,9 +1,11 @@
 package com.gofit;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -27,6 +30,7 @@ public class ExerciseRecycler extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     RecyclerView recycler=null;
+    NavigationListener navigationListener;
     LinearLayoutManager layoutManager = null;
     // TODO: Rename and change types of parameters
     private ArrayList mParam1;
@@ -79,12 +83,20 @@ public class ExerciseRecycler extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_exercise_recycler, container, false);
         recycler = (RecyclerView)view.findViewById(R.id.cardList);
-        layoutManager = new LinearLayoutManager(getContext());
-        //layoutManager.scrollToPosition(0);
-// Set the LayoutManager to RecyclerView
+        layoutManager = new GridLayoutManager(getContext(),1);
+        navigationListener = (NavigationListener) getActivity();
         recycler.setLayoutManager(layoutManager);
         final MyAdapter adapter = new MyAdapter(mParam1);
         recycler.setAdapter(adapter);
+        MyAdapter.OnItemClickListener listener = new MyAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                navigationListener.navigate(v,position);
+
+            }
+
+        };
+        adapter.setOnItemClickListener(listener,getActivity());
         return view;
 
 

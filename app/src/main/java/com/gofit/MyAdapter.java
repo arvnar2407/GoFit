@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -30,15 +31,8 @@ public class MyAdapter extends android.support.v7.widget.RecyclerView.Adapter<My
 
 
 
-    public interface OnItemClickListener
-    {
+    public interface OnItemClickListener {
         public void onItemClick(View v, int position);
-        public void onItemLongClick(View v, int position);
-        public void onOverFlowMenuClick(View v, int position);
-
-        public void onListItemClick(HashMap map, View v);
-
-        //public void onItemSelected(HashMap map, View v);
     }
     Boolean selected = false;
     Boolean deletion = false;
@@ -53,24 +47,15 @@ public class MyAdapter extends android.support.v7.widget.RecyclerView.Adapter<My
     }
 
 
-//    public void setOnItemClickListener(final OnItemClickListener listener, FragmentActivity activity)
-//    {
-//        mItemClickListener = listener;
-//        mListener = (OnItemSelectedListener) activity;
-//        Log.i("in set",this.listener+"");
-//    }
+    public void setOnItemClickListener(final OnItemClickListener listener, FragmentActivity activity)
+    {
+        mItemClickListener = listener;
+    }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = null;
         view =LayoutInflater.from(parent.getContext()).inflate(R.layout.itemlayout, parent,false);
-//        switch (viewType)
-//        {
-//            case 0:
-//                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.itemlayout, parent,false);
-//                    break;
-//
-//
-//        }
+
 
         return new ViewHolder(view);
     }
@@ -90,12 +75,7 @@ public class MyAdapter extends android.support.v7.widget.RecyclerView.Adapter<My
     }
     @Override
     public int getItemViewType ( int position ){
-        if(position <= 4)
-            return 0;
-        else if (position >=25)
-            return 1;
-        else
-            return 2;
+        return 0;
     }
 
 
@@ -111,27 +91,6 @@ public class MyAdapter extends android.support.v7.widget.RecyclerView.Adapter<My
             super(itemView);
 
             image = (ImageView) itemView.findViewById(R.id.img1);
-
-
-            // description.append(desc);
-
-            if(dot!= null)
-            {
-                dot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (mItemClickListener!=null)
-                        {
-                            mItemClickListener.onOverFlowMenuClick(v,getAdapterPosition());
-                        }
-                    }
-                });
-            }
-            int count = 0;
-            count++;
-           // image.setTransitionName("name"+ count);
-            image.setOnClickListener(new MyClickListener());
-            //image.setOnClickListener(new MyClickListener());
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -140,14 +99,7 @@ public class MyAdapter extends android.support.v7.widget.RecyclerView.Adapter<My
                         mItemClickListener.onItemClick(image,getPosition());
                 }
             });
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    if (mItemClickListener != null)
-                        mItemClickListener.onItemLongClick(v, getPosition());
-                    return true;
-                }
-            });
+
         }
 
         private final class MyClickListener implements View.OnClickListener {

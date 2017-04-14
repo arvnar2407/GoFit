@@ -24,6 +24,23 @@ public class ViewPagerActivity extends AppCompatActivity {
         }
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
+        pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
       //  getSupportFragmentManager().beginTransaction().replace(R.id.layout1,ImageFragment.newInstance());
 
     }
@@ -39,17 +56,16 @@ public class ViewPagerActivity extends AppCompatActivity {
             switch(pos) {
 
                 case 0: return ImageFragment.newInstance(selectedList);
-//                case 1: return SecondFragment.newInstance("SecondFragment, Instance 1");
-//                case 2: return ThirdFragment.newInstance("ThirdFragment, Instance 1");
-//                case 3: return ThirdFragment.newInstance("ThirdFragment, Instance 2");
-//                case 4: return ThirdFragment.newInstance("ThirdFragment, Instance 3");
+//                case 1: return VideoFragment.newInstance("SecondFragment, Instance 1");
+//                case 2: return DescriptionFragment.newInstance("ThirdFragment, Instance 1");
+
                 default: return ImageFragment.newInstance(selectedList);
             }
         }
 
         @Override
         public int getCount() {
-            return 5;
+            return 3;
         }
     }
 }
