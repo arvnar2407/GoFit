@@ -7,8 +7,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.google.android.gms.vision.text.Text;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -73,7 +77,12 @@ public class DescriptionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_description, container, false);
+        View view =  inflater.inflate(R.layout.fragment_description, container, false);
+        TextView textView = (TextView) view.findViewById(R.id.description);
+        HashMap map = (HashMap) mParam1.get(0);
+        HashMap temp = (HashMap) map.get("lateralcable");
+        textView.setText(temp.get("description").toString());
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

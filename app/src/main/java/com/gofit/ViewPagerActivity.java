@@ -9,9 +9,13 @@ import android.os.Bundle;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class ViewPagerActivity extends AppCompatActivity {
     ArrayList selectedList;
+    int position;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,8 +23,17 @@ public class ViewPagerActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             selectedList  = (ArrayList) extras.getSerializable("shoulder");
+            position = (int) extras.get("position");
             //The key argument here must match that used in the other activity
             Log.d("in",""+selectedList.get(0));
+        }
+        HashMap map = (HashMap) selectedList.get(position);
+        Iterator it = map.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+
+
+            it.remove(); // avoids a ConcurrentModificationException
         }
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));

@@ -39,6 +39,7 @@ public class ExerciseListActivity extends AppCompatActivity implements Navigatio
         Intent intent = new Intent(getApplicationContext(),ViewPagerActivity.class);
         intent.putExtra("id",idStr);
         intent.putExtra("shoulder",selectedList);
+        intent.putExtra("position",position);
         startActivity(intent);
     }
 }
