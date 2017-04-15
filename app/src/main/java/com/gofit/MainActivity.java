@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity
         final ArrayList shoulder = new ArrayList();
         final ArrayList biceps = new ArrayList();
         final ArrayList abs = new ArrayList();
+        final ArrayList selected = new ArrayList();
         childRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -84,6 +85,15 @@ public class MainActivity extends AppCompatActivity
 
                     it.remove(); // avoids a ConcurrentModificationException
                 }
+                HashMap selectedMap = (HashMap) shoulder.get(0);
+
+                Iterator it1 = selectedMap.entrySet().iterator();
+                while (it1.hasNext()) {
+                    Map.Entry pair = (Map.Entry)it1.next();
+
+                    selected.add(pair.getValue());
+                    it1.remove(); // avoids a ConcurrentModificationException
+                }
 
             }
 
@@ -99,7 +109,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),ExerciseListActivity.class);
-                intent.putExtra("shoulder",shoulder);
+                intent.putExtra("shoulder",selected);
                 startActivity(intent);
 
             }

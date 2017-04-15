@@ -7,9 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.vision.text.Text;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,7 +32,7 @@ public class DescriptionFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private ArrayList mParam1;
+    private HashMap mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
@@ -56,10 +58,10 @@ public class DescriptionFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-    public static DescriptionFragment newInstance(ArrayList list) {
+    public static DescriptionFragment newInstance(HashMap hashMap) {
         DescriptionFragment fragment = new DescriptionFragment();
         Bundle args = new Bundle();
-        args.putSerializable(ARG_PARAM1, list);
+        args.putSerializable(ARG_PARAM1, hashMap);
 
         fragment.setArguments(args);
         return fragment;
@@ -68,7 +70,7 @@ public class DescriptionFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = (ArrayList) getArguments().getSerializable(ARG_PARAM1);
+            mParam1 = (HashMap) getArguments().getSerializable(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -78,10 +80,9 @@ public class DescriptionFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_description, container, false);
+        Picasso.with(getContext()).load((String) mParam1.get("imageurl")).into((ImageView) view.findViewById(R.id.desimg));
         TextView textView = (TextView) view.findViewById(R.id.description);
-        HashMap map = (HashMap) mParam1.get(0);
-        HashMap temp = (HashMap) map.get("lateralcable");
-        textView.setText(temp.get("description").toString());
+        textView.setText(mParam1.get("description").toString());
         return view;
     }
 

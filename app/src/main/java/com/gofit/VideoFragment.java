@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.VideoView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -27,7 +28,7 @@ public class VideoFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private ArrayList mParam1;
+    private HashMap mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
@@ -53,10 +54,10 @@ public class VideoFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-    public static VideoFragment newInstance(ArrayList list) {
+    public static VideoFragment newInstance(HashMap hashMap) {
         VideoFragment fragment = new VideoFragment();
         Bundle args = new Bundle();
-        args.putSerializable(ARG_PARAM1, list);
+        args.putSerializable(ARG_PARAM1, hashMap);
 
         fragment.setArguments(args);
         return fragment;
@@ -66,7 +67,7 @@ public class VideoFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = (ArrayList) getArguments().getSerializable(ARG_PARAM1);
+            mParam1 = (HashMap) getArguments().getSerializable(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }

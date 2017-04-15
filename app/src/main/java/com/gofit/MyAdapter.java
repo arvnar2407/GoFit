@@ -1,5 +1,6 @@
 package com.gofit;
 
+import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,6 +11,10 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,7 +29,8 @@ import java.util.List;
 public class MyAdapter extends android.support.v7.widget.RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     List selectedList =null;
-
+    StorageReference storageRef;
+    Context context;
     public void addItem(int position) {
 
     }
@@ -41,9 +47,10 @@ public class MyAdapter extends android.support.v7.widget.RecyclerView.Adapter<My
 
     OnItemClickListener listener;
     static OnItemClickListener mItemClickListener ;
-    public MyAdapter(ArrayList list) {
+    public MyAdapter(ArrayList list,Context context) {
         selectedList = list;
-
+        storageRef = FirebaseStorage.getInstance().getReference();
+        this.context = context;
     }
 
 
@@ -63,15 +70,16 @@ public class MyAdapter extends android.support.v7.widget.RecyclerView.Adapter<My
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final HashMap map = (HashMap) selectedList.get(position);
-        map.get("highpull");
-        holder.image.setImageResource(R.drawable.img1);
+
+        Picasso.with(context).load((String) map.get("imageurl")).into(holder.image);
+        //holder.image.setImageResource(R.drawable.img1);
     }
 
 
 
     @Override
     public int getItemCount() {
-        return selectedList.size();
+       return selectedList.size();
     }
     @Override
     public int getItemViewType ( int position ){
