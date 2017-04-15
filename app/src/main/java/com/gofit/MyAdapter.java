@@ -64,7 +64,7 @@ public class MyAdapter extends android.support.v7.widget.RecyclerView.Adapter<My
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final HashMap map = (HashMap) selectedList.get(position);
         map.get("highpull");
-        holder.image.setImageResource(R.drawable.ezbarhighpull);
+        holder.image.setImageResource(R.drawable.img1);
     }
 
 
