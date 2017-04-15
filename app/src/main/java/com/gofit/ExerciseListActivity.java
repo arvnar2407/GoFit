@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ExerciseListActivity extends AppCompatActivity implements NavigationListener{
     ArrayList selectedList;
@@ -38,7 +39,8 @@ public class ExerciseListActivity extends AppCompatActivity implements Navigatio
         String idStr = getResources().getResourceName(id);
         Intent intent = new Intent(getApplicationContext(),ViewPagerActivity.class);
         intent.putExtra("id",idStr);
-        intent.putExtra("shoulder",selectedList);
+
+        intent.putExtra("selectedlist",selectedList);
         intent.putExtra("position",position);
         startActivity(intent);
     }

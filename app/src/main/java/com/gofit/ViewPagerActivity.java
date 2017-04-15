@@ -16,18 +16,18 @@ import java.util.Map;
 public class ViewPagerActivity extends AppCompatActivity {
     ArrayList selectedList;
     int position;
+    HashMap map;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_pager);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            selectedList  = (ArrayList) extras.getSerializable("shoulder");
+            selectedList  = (ArrayList) extras.getSerializable("selectedlist");
             position = (int) extras.get("position");
             Log.d("in",""+selectedList.get(0));
         }
-        HashMap map = (HashMap) selectedList.get(position);
-        Iterator it = map.entrySet().iterator();
+       map = (HashMap) selectedList.get(position);
 
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
@@ -62,11 +62,11 @@ public class ViewPagerActivity extends AppCompatActivity {
         public Fragment getItem(int pos) {
             switch(pos) {
 
-                case 0: return ImageFragment.newInstance(selectedList);
-                case 1: return VideoFragment.newInstance(selectedList);
-                case 2: return DescriptionFragment.newInstance(selectedList);
+                case 0: return ImageFragment.newInstance(map);
+                case 1: return VideoFragment.newInstance(map);
+                case 2: return DescriptionFragment.newInstance(map);
 
-                default: return ImageFragment.newInstance(selectedList);
+                default: return ImageFragment.newInstance(map);
             }
         }
 
