@@ -11,8 +11,7 @@
         android:id="@+id/loginlogo"
         android:src="@drawable/logo1"
         android:alpha=".65"
-        android:layout_marginTop="15dp"
-        />
+        android:layout_marginTop="15dp" />
 
 
     <EditText
@@ -85,3 +84,4 @@
 
 
 </RelativeLayout>
+
