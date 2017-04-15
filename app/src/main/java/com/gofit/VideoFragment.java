@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.VideoView;
 
 import java.util.ArrayList;
 
@@ -74,7 +75,8 @@ public class VideoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_video, container, false);
+        View vid = inflater.inflate(R.layout.fragment_video, container, false);
+        return vid;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
