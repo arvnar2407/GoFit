@@ -18,5 +18,15 @@
             android:textSize="40dp"
             android:textAlignment="center"
             android:layout_marginTop="20dp"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/vidtext"
+            android:id="@+id/youtube">
+
+        </FrameLayout>
+
+
+
     </RelativeLayout>
 </FrameLayout>
