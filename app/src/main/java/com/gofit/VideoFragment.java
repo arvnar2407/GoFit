@@ -100,7 +100,7 @@ public class VideoFragment extends Fragment  {
             public void onInitializationSuccess(Provider provider, YouTubePlayer player, boolean wasRestored) {
                 if (!wasRestored) {
                     player.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT);
-                    player.loadVideo(id);
+                    player.cueVideo(id);
                     player.play();
                 }
             }

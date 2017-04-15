@@ -26,7 +26,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ViewPagerActivity" />
-        <activity android:name=".ExerciseListActivity"></activity>
+        <activity android:name=".ExerciseListActivity" />
+        <activity android:name=".CategoryActivity" />
     </application>
 
 </manifest>
