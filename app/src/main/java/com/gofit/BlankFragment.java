@@ -1,44 +1,35 @@
 package com.gofit;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ExerciseRecycler.OnFragmentInteractionListener} interface
+ * {@link BlankFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ExerciseRecycler#newInstance} factory method to
+ * Use the {@link BlankFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ExerciseRecycler extends Fragment {
+public class BlankFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    RecyclerView recycler=null;
-    NavigationListener navigationListener;
-    LinearLayoutManager layoutManager = null;
+
     // TODO: Rename and change types of parameters
-    private ArrayList mParam1;
+    private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
-    public ExerciseRecycler() {
+    public BlankFragment() {
         // Required empty public constructor
     }
 
@@ -48,22 +39,14 @@ public class ExerciseRecycler extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ExerciseRecycler.
+     * @return A new instance of fragment BlankFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ExerciseRecycler newInstance(String param1, String param2) {
-        ExerciseRecycler fragment = new ExerciseRecycler();
+    public static BlankFragment newInstance(String param1, String param2) {
+        BlankFragment fragment = new BlankFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-    public static ExerciseRecycler newInstance(ArrayList list) {
-        ExerciseRecycler fragment = new ExerciseRecycler();
-        Bundle args = new Bundle();
-        args.putSerializable(ARG_PARAM1, list);
-
         fragment.setArguments(args);
         return fragment;
     }
@@ -72,7 +55,7 @@ public class ExerciseRecycler extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = (ArrayList) getArguments().getSerializable(ARG_PARAM1);
+            mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -81,25 +64,7 @@ public class ExerciseRecycler extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_exercise_recycler, container, false);
-        recycler = (RecyclerView)view.findViewById(R.id.cardList);
-        layoutManager = new GridLayoutManager(getContext(),2);
-        navigationListener = (NavigationListener) getActivity();
-        recycler.setLayoutManager(layoutManager);
-        final MyAdapter adapter = new MyAdapter(mParam1,getContext());
-        recycler.setAdapter(adapter);
-        MyAdapter.OnItemClickListener listener = new MyAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
-                navigationListener.navigate(v,position);
-
-            }
-
-        };
-        adapter.setOnItemClickListener(listener,getActivity());
-        return view;
-
-
+        return inflater.inflate(R.layout.fragment_blank, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -109,16 +74,16 @@ public class ExerciseRecycler extends Fragment {
         }
     }
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
 
     @Override
     public void onDetach() {

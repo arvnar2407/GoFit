@@ -24,7 +24,6 @@ public class ViewPagerActivity extends AppCompatActivity {
         if (extras != null) {
             selectedList  = (ArrayList) extras.getSerializable("shoulder");
             position = (int) extras.get("position");
-            //The key argument here must match that used in the other activity
             Log.d("in",""+selectedList.get(0));
         }
         HashMap map = (HashMap) selectedList.get(position);
