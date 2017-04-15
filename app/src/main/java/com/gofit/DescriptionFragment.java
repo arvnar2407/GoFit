@@ -7,9 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.vision.text.Text;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -78,6 +80,7 @@ public class DescriptionFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_description, container, false);
+        Picasso.with(getContext()).load((String) mParam1.get("imageurl")).into((ImageView) view.findViewById(R.id.desimg));
         TextView textView = (TextView) view.findViewById(R.id.description);
         textView.setText(mParam1.get("description").toString());
         return view;
