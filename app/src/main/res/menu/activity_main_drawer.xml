@@ -23,6 +23,10 @@
             android:id="@+id/nav_diet"
             android:icon="@drawable/img5"
             android:title="DIET" />
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/img5"
+            android:title="Logout" />
     </group>
 
 </menu>

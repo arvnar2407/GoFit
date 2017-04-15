@@ -29,12 +29,7 @@ public class ViewPagerActivity extends AppCompatActivity {
         }
         HashMap map = (HashMap) selectedList.get(position);
         Iterator it = map.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
 
-
-            it.remove(); // avoids a ConcurrentModificationException
-        }
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
