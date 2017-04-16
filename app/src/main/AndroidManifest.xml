@@ -28,6 +28,7 @@
         <activity android:name=".ViewPagerActivity" />
         <activity android:name=".ExerciseListActivity" />
         <activity android:name=".CategoryActivity" />
+        <activity android:name=".BackActivity"></activity>
     </application>
 
 </manifest>
