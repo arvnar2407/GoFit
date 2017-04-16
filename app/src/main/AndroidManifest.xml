@@ -19,16 +19,18 @@
             android:name=".LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".ViewPagerActivity" />
+        <activity android:name=".ExerciseListActivity" />
+        <activity android:name=".CategoryActivity" />
+        <activity android:name=".BackActivity" />
+        <activity android:name=".LaunchscreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ViewPagerActivity" />
-        <activity android:name=".ExerciseListActivity" />
-        <activity android:name=".CategoryActivity" />
-        <activity android:name=".BackActivity"></activity>
     </application>
 
 </manifest>

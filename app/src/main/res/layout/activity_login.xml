@@ -56,17 +56,23 @@
 
 
     <Button
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
         android:text="LOG IN"
         android:layout_below="@+id/edit_text_password"
         android:layout_marginTop="17dp"
+        android:layout_marginLeft="20dp"
         android:id="@+id/btn_login"
-        android:layout_centerHorizontal="true"/>
+        android:layout_alignParentLeft="true"/>
+
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_marginTop="17dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/edit_text_password"
+        android:layout_width="180dp"
+        android:layout_alignParentRight="true"
+        android:layout_height="50dp" />
 
     <TextView
         android:layout_width="wrap_content"
