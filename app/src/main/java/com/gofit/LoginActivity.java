@@ -87,8 +87,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         userNameET = (EditText)findViewById(R.id.edit_text_email);
         passwordET = (EditText)findViewById(R.id.edit_text_password);
         Button login = (Button) findViewById(R.id.btn_login);
-        final String name = userNameET.getText().toString();
-        final String pwd = passwordET.getText().toString();
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,7 +112,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createUser();
+                Intent intent = new Intent(getApplicationContext(),Signup.class);
+
+                startActivity(intent);
             }
         });
     }
@@ -187,25 +188,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             super.onBackPressed();
 
     }
-    // create a new user in Firebase
-    public void createUser() {
-        if(userNameET.getText() == null ||  !isEmailValid(userNameET.getText().toString())) {
-            return;
-        }
 
-        mAuth.createUserWithEmailAndPassword(userNameET.getText().toString(),passwordET.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    Snackbar snackbar = Snackbar.make(userNameET, USER_CREATION_SUCCESS, Snackbar.LENGTH_SHORT);
-                    snackbar.show();
-                }else{
-                    Snackbar snackbar = Snackbar.make(userNameET, USER_CREATION_ERROR, Snackbar.LENGTH_SHORT);
-                    snackbar.show();
-                }
-            }
-        });
-    }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
