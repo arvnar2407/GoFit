@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity
         nav_email.setText(email);
         if(photoUrl !=null)
         {
-            Picasso.with(getApplicationContext()).load(photoUrl).into((ImageView) hView.findViewById(R.id.Navimage));
+            Picasso.with(getApplicationContext()).load(photoUrl).into((ImageView) hView.findViewById(R.id.navimage1));
         }
         navigationView.setNavigationItemSelectedListener(this);
         DatabaseReference childRef = FirebaseDatabase.getInstance().getReference().child("exercisedata").getRef();

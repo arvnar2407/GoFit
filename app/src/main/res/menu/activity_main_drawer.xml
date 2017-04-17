@@ -4,11 +4,11 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/img1"
+            android:icon="@drawable/img6"
             android:title="HOME" />
         <item
             android:id="@+id/nav_setr"
-            android:icon="@drawable/img2"
+            android:icon="@drawable/img7"
             android:title="SET ROUTINE" />
         <item
             android:id="@+id/nav_trackr"
@@ -25,7 +25,7 @@
             android:title="DIET" />
         <item
             android:id="@+id/logout"
-            android:icon="@drawable/img5"
+            android:icon="@drawable/img8"
             android:title="Logout" />
     </group>
 
