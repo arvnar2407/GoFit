@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     android:scaleType="centerInside"
     android:layout_height="fill_parent"
-    tools:context="com.gofit.LaunchscreenActivity">
+    app:context="com.gofit.LaunchscreenActivity">
 
 
     <ImageView
