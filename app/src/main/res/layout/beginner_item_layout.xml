@@ -39,7 +39,7 @@
                 android:id="@+id/btxt2"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
-                android:layout_alignEnd="@+id/img1"
+                android:layout_alignEnd="@+id/bimg1"
                 android:layout_below="@+id/btxt1"
                 android:layout_centerInParent="true"/>
 
