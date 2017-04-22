@@ -72,6 +72,18 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"
         android:layout_below="@+id/edit_text_password2"/>
+    <ImageView
+        android:id="@+id/imgView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
 
+        android:layout_below="@+id/edit_text_password2"/>
+    <Button
+        android:id="@+id/buttonLoadPicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgView"
+        android:text="Load Picture"
+        android:layout_gravity="center"/>
 
 </RelativeLayout>
