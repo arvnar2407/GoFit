@@ -9,9 +9,6 @@ import android.widget.Button;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 
-
-
-
 public class LaunchFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";

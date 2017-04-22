@@ -12,8 +12,8 @@
         app:cardCornerRadius = "10dp"
         app:cardElevation ="10dp"
         app:cardUseCompatPadding ="true"
-        android:background="@color/colorPrimary"
-        app:cardBackgroundColor="#673AB7"
+        android:background="#FFFF8D"
+        app:cardBackgroundColor="#FFD180"
         app:theme="@style/Theme.AppCompat.DayNight">
 
 
@@ -23,14 +23,25 @@
             android:orientation="horizontal"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
-
-
             android:layout_marginRight="5dp"
             >
-        <ImageView
-            android:layout_width="150dp"
-            android:layout_height="100dp"
-            android:id="@+id/img1"/>
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:id="@+id/bimg1"/>
+            <TextView
+                android:id="@+id/btxt1"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_alignEnd="@+id/bimg1"
+                android:layout_centerInParent="true"/>
+            <TextView
+                android:id="@+id/btxt2"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_alignEnd="@+id/img1"
+                android:layout_below="@+id/btxt1"
+                android:layout_centerInParent="true"/>
 
 
         </RelativeLayout>
