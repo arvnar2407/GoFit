@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:id="@+id/launch"
-    android:fitsSystemWindows="true"
     android:scaleType="centerInside"
     android:layout_height="fill_parent"
-    app:context="com.gofit.LaunchscreenActivity">
+    android:adjustViewBounds="true"
+    tools:context="com.gofit.LaunchscreenActivity">
 
 
     <ImageView
@@ -24,6 +24,8 @@
         android:src="@drawable/logo1"
         android:alpha=".75"
         android:scaleX="1.3"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
         android:layout_marginTop="15dp" />
 
     <Button
@@ -33,6 +35,7 @@
         android:textSize="25sp"
         android:id="@+id/btn_letsgo"
         android:layout_centerHorizontal="true"
+        android:adjustViewBounds="true"
         android:layout_marginTop="30dp"
         android:layout_below="@+id/loginlogo1st"/>
 
@@ -43,6 +46,7 @@
         android:textSize="25sp"
         android:id="@+id/btn_about"
         android:layout_centerHorizontal="true"
+        android:adjustViewBounds="true"
         android:layout_marginTop="30dp"
         android:layout_below="@+id/btn_letsgo"/>
 
@@ -53,12 +57,14 @@
         android:layout_above="@+id/ltext2"
         android:text="DESIGNED BY: ARVIND N and AKSHAY C"
         android:textColor="#000000"
+        android:adjustViewBounds="true"
         android:textStyle="bold"
         android:textAlignment="center"/>
     <TextView
         android:layout_width="match_parent"
         android:id="@+id/ltext2"
         android:layout_height="20dp"
+        android:adjustViewBounds="true"
         android:textStyle="bold"
         android:layout_alignParentBottom="true"
         android:text="All Rights Reserved (c)"
