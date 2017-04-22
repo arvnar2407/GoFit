@@ -1,5 +1,6 @@
 package com.gofit;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
@@ -70,8 +71,13 @@ public class MyAdapter extends android.support.v7.widget.RecyclerView.Adapter<My
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final HashMap map = (HashMap) selectedList.get(position);
-
-        Picasso.with(context).load((String) map.get("imageurl")).into(holder.image);
+        if(context.getClass().getSimpleName().equals("BeginnerActivity"))
+        {
+            Picasso.with(context).load((String) map.get("imagelink")).into(holder.image);
+        }
+        else {
+            Picasso.with(context).load((String) map.get("imageurl")).into(holder.image);
+        }
         //holder.image.setImageResource(R.drawable.img1);
     }
 
