@@ -62,8 +62,13 @@ public class MyAdapter extends android.support.v7.widget.RecyclerView.Adapter<My
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = null;
-        view =LayoutInflater.from(parent.getContext()).inflate(R.layout.itemlayout, parent,false);
-
+        if (context.getClass().getSimpleName().equals("BeginnerActivity"))
+        {
+            view =LayoutInflater.from(parent.getContext()).inflate(R.layout.beginner_item_layout, parent,false);
+        }
+        else {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.itemlayout, parent, false);
+        }
 
         return new ViewHolder(view);
     }
@@ -73,7 +78,10 @@ public class MyAdapter extends android.support.v7.widget.RecyclerView.Adapter<My
         final HashMap map = (HashMap) selectedList.get(position);
 
         Picasso.with(context).load((String) map.get("imageurl")).into(holder.image);
-
+        if (context.getClass().getSimpleName().equals("BeginnerActivity"))
+        {
+            holder.name.setText(map.get("name").toString());
+        }
         //holder.image.setImageResource(R.drawable.img1);
     }
 
@@ -93,13 +101,9 @@ public class MyAdapter extends android.support.v7.widget.RecyclerView.Adapter<My
         public ImageView image;
         public TextView name;
         public TextView description;
-
-        public RatingBar rating;
-        public TextView ratingText;
-        public ImageView dot;
         public ViewHolder(View itemView) {
             super(itemView);
-
+            name = (TextView) itemView.findViewById(R.id.btxt1);
             image = (ImageView) itemView.findViewById(R.id.img1);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -112,14 +116,7 @@ public class MyAdapter extends android.support.v7.widget.RecyclerView.Adapter<My
 
         }
 
-        private final class MyClickListener implements View.OnClickListener {
-            @Override
-            public void onClick(View view){
-//                int id = (Integer) view.getId();
-//                HashMap movie = data.getItem(getAdapterPosition());
-//                mListener.onItemSelected(movie, view ,getAdapterPosition());
-            }
-        }
+
     }
 
 }
