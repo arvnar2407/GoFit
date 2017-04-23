@@ -27,7 +27,7 @@
             <ImageView
                 android:layout_width="150dp"
                 android:layout_height="100dp"
-                android:id="@+id/bimg1"/>
+                android:id="@+id/img1"/>
 
 
             <TextView
@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@+id/bimg1"
+                android:layout_toRightOf="@+id/img1"
                 android:layout_below="@+id/btxt2"
                 android:text="akshay"
                 />
@@ -47,7 +47,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="10dp"
                 android:text="arvind"
-                android:layout_toRightOf="@+id/bimg1"
+                android:layout_toRightOf="@+id/img1"
                 />
 
 
