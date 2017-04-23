@@ -63,7 +63,7 @@
     <TextView
         android:layout_width="match_parent"
         android:id="@+id/ltext2"
-        android:layout_height="20dp"
+        android:layout_height="21dp"
         android:adjustViewBounds="true"
         android:textStyle="bold"
         android:layout_alignParentBottom="true"
