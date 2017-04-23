@@ -19,7 +19,7 @@
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="200dp"
+        android:layout_height="250dp"
         android:id="@+id/loginlogo1st"
         android:src="@drawable/logo1"
         android:alpha=".75"
@@ -32,7 +32,7 @@
         android:layout_width="300dp"
         android:layout_height="100dp"
         android:text="LET'S GO !!!"
-        android:textSize="25sp"
+        android:textSize="30sp"
         android:id="@+id/btn_letsgo"
         android:layout_centerHorizontal="true"
         android:adjustViewBounds="true"
@@ -43,7 +43,7 @@
         android:layout_width="300dp"
         android:layout_height="100dp"
         android:text="ABOUT"
-        android:textSize="25sp"
+        android:textSize="30sp"
         android:id="@+id/btn_about"
         android:layout_centerHorizontal="true"
         android:adjustViewBounds="true"
