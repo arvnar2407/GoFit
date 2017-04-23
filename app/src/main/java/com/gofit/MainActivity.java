@@ -211,10 +211,12 @@ MediaPlayer mediaPlayer;
         } else if (id == R.id.nav_trackr) {
             mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.navbut);
             mediaPlayer.start();
+
         } else if (id == R.id.nav_locate) {
             mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.navbut);
             mediaPlayer.start();
-
+            Intent intent = new Intent(this,MapsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_diet) {
             mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.navbut);
             mediaPlayer.start();

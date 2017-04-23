@@ -81,16 +81,26 @@ public class BeginnerRoutineFragment extends Fragment {
 
         RecyclerView beginnerRecycler = (RecyclerView) rootView.findViewById(R.id.beginnerlist);
         MyAdapter adapter = new MyAdapter(list,getContext());
+
         LinearLayoutManager layout= new LinearLayoutManager(getContext());
         beginnerRecycler.setLayoutManager(layout);
         beginnerRecycler.setAdapter(adapter);
+        MyAdapter.OnItemClickListener listener = new MyAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                mListener.onFragmentInteraction(v,position);
+
+            }
+
+        };
+        adapter.setOnItemClickListener(listener,getActivity());
         return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+           // mListener.onFragmentInteraction(uri);
         }
     }
 
@@ -123,6 +133,6 @@ public class BeginnerRoutineFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(View v, int position);
     }
 }
