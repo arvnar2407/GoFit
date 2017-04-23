@@ -25,6 +25,7 @@ public class CategoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
+        getWindow().setEnterTransition(new Slide(Gravity.TOP).setDuration(1000));
         Button button = (Button) findViewById(R.id.catbtn1);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
