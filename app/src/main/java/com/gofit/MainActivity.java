@@ -3,9 +3,11 @@ package com.gofit;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.transition.Slide;
 import android.util.Log;
 import android.view.Gravity;
@@ -207,7 +209,12 @@ MediaPlayer mediaPlayer;
             mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.navbut);
             mediaPlayer.start();
             Intent intent = new Intent(this,CategoryActivity.class);
-            startActivity(intent);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this);
+                startActivity(intent, options.toBundle());
+            } else {
+                startActivity(intent);
+            }
         } else if (id == R.id.nav_trackr) {
             mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.navbut);
             mediaPlayer.start();
