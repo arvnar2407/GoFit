@@ -1,11 +1,14 @@
 package com.gofit;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 
 import android.support.design.widget.FloatingActionButton;
+import android.transition.Slide;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -34,7 +37,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-
+MediaPlayer mediaPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -197,21 +200,31 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            // Handle the camera action
+            // Handle
+            mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.navbut);
+            mediaPlayer.start();
         } else if (id == R.id.nav_setr) {
+            mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.navbut);
+            mediaPlayer.start();
             Intent intent = new Intent(this,CategoryActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_trackr) {
-
+            mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.navbut);
+            mediaPlayer.start();
         } else if (id == R.id.nav_locate) {
+            mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.navbut);
+            mediaPlayer.start();
 
         } else if (id == R.id.nav_diet) {
+            mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.navbut);
+            mediaPlayer.start();
 
         }
         else if (id == R.id.logout) {
             FirebaseAuth auth = FirebaseAuth.getInstance();
             auth.signOut();
-
+            mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.navbut);
+            mediaPlayer.start();
             Intent intent = new Intent(this,LoginActivity.class);
             startActivity(intent);
             finish();

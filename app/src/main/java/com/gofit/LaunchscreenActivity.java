@@ -15,8 +15,8 @@ public class LaunchscreenActivity extends AppCompatActivity implements LaunchFra
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mediaPlayer = MediaPlayer.create(LaunchscreenActivity.this, R.raw.launch);
-        mediaPlayer.start();
+    //    mediaPlayer = MediaPlayer.create(LaunchscreenActivity.this, R.raw.launch);
+     //   mediaPlayer.start();
         setContentView(R.layout.activity_launchscreen);
         getSupportFragmentManager().beginTransaction().replace(R.id.launch,LaunchFragment.newInstance()).commit();
 
