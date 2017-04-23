@@ -25,7 +25,7 @@ public class ViewPagerActivity extends AppCompatActivity {
         if (extras != null) {
             selectedList  = (ArrayList) extras.getSerializable("selectedlist");
             position = (int) extras.get("position");
-            Log.d("in",""+selectedList.get(0));
+
         }
        map = (HashMap) selectedList.get(position);
 
