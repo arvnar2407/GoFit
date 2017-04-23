@@ -1,6 +1,7 @@
 package com.gofit;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,7 @@ public class LaunchFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    MediaPlayer mediaPlayer;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -51,6 +53,8 @@ public class LaunchFragment extends Fragment {
         go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mediaPlayer = MediaPlayer.create(getActivity(), R.raw.letsgo);
+                mediaPlayer.start();
                 mListener.onFragmentInteraction(v);
             }
         });
@@ -58,6 +62,8 @@ public class LaunchFragment extends Fragment {
         about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mediaPlayer = MediaPlayer.create(getActivity(), R.raw.about);
+                mediaPlayer.start();
                 mListener.onFragmentInteraction(v);
             }
         });
