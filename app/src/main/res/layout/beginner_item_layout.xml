@@ -20,7 +20,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
             android:layout_marginRight="5dp"
@@ -29,19 +28,28 @@
                 android:layout_width="150dp"
                 android:layout_height="100dp"
                 android:id="@+id/bimg1"/>
+
+
             <TextView
                 android:id="@+id/btxt1"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
-                android:layout_alignEnd="@+id/bimg1"
-                android:layout_centerInParent="true"/>
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/bimg1"
+                android:layout_below="@+id/btxt2"
+                android:text="akshay"
+                />
+
             <TextView
                 android:id="@+id/btxt2"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
-                android:layout_alignEnd="@+id/bimg1"
-                android:layout_below="@+id/btxt1"
-                android:layout_centerInParent="true"/>
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
+                android:text="arvind"
+                android:layout_toRightOf="@+id/bimg1"
+                />
+
 
 
         </RelativeLayout>
