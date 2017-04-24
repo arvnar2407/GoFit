@@ -25,6 +25,7 @@ public class CategoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
+
         getWindow().setEnterTransition(new Slide(Gravity.TOP).setDuration(1000));
         Button button = (Button) findViewById(R.id.catbtn1);
         button.setOnClickListener(new View.OnClickListener() {
@@ -32,9 +33,11 @@ public class CategoryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mediaPlayer = MediaPlayer.create(CategoryActivity.this, R.raw.clicks);
                 mediaPlayer.start();
-               Intent intent = new Intent(getApplicationContext(),BeginnerActivity.class);
+                Intent intent = new Intent(getApplicationContext(),BeginnerActivity.class);
                 startActivity(intent);
             }
         });
     }
+
+
 }

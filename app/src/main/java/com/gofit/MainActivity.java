@@ -1,5 +1,6 @@
 package com.gofit;
 
+import android.app.LauncherActivity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.transition.Slide;
 import android.util.Log;
 import android.view.Gravity;
@@ -38,27 +40,14 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    FirebaseUser user;
 MediaPlayer mediaPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String name = null;
-        String email = null;
-        Uri photoUrl=null;
-        if (user != null) {
-            // Name, email address, and profile photo Url
-            name = user.getDisplayName();
-            email = user.getEmail();
-            photoUrl = user.getPhotoUrl();
-
-        }
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        createDrawer();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,25 +57,6 @@ MediaPlayer mediaPlayer;
 
             }
         });
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        View hView =  navigationView.getHeaderView(0);
-        TextView nav_user = (TextView)hView.findViewById(R.id.headername);
-        TextView nav_email = (TextView)hView.findViewById(R.id.headeremail);
-        nav_user.setText(name);
-        nav_email.setText(email);
-        if(photoUrl !=null)
-        {
-            Picasso.with(getApplicationContext()).load(photoUrl).into((ImageView) hView.findViewById(R.id.navimage1));
-        }
-        navigationView.setNavigationItemSelectedListener(this);
         DatabaseReference childRef = FirebaseDatabase.getInstance().getReference().child("exercisedata").getRef();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         DatabaseReference newref =ref.child("users/"+user.getUid());
@@ -164,6 +134,40 @@ MediaPlayer mediaPlayer;
         });
     }
 
+    public void createDrawer() {
+        String name = null;
+        String email = null;
+        Uri photoUrl=null;
+        if (user != null) {
+            // Name, email address, and profile photo Url
+            name = user.getDisplayName();
+            email = user.getEmail();
+            photoUrl = user.getPhotoUrl();
+
+        }
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View hView =  navigationView.getHeaderView(0);
+        TextView nav_user = (TextView)hView.findViewById(R.id.headername);
+        TextView nav_email = (TextView)hView.findViewById(R.id.headeremail);
+        nav_user.setText(name);
+        nav_email.setText(email);
+        if(photoUrl !=null)
+        {
+            Picasso.with(getApplicationContext()).load(photoUrl).into((ImageView) hView.findViewById(R.id.navimage1));
+        }
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -171,7 +175,8 @@ MediaPlayer mediaPlayer;
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-           super.onBackPressed();
+           finish();
+
         }
     }
 
@@ -207,19 +212,29 @@ MediaPlayer mediaPlayer;
             // Handle
             mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.navbut);
             mediaPlayer.start();
+            Intent intent = new Intent(this ,MainActivity.class);
+            startActivity(intent);
+            finish();
+
         } else if (id == R.id.nav_setr) {
             mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.navbut);
             mediaPlayer.start();
             Intent intent = new Intent(this,CategoryActivity.class);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this);
+                intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
                 startActivity(intent, options.toBundle());
+
             } else {
+                intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
                 startActivity(intent);
+
             }
         } else if (id == R.id.nav_trackr) {
             mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.navbut);
             mediaPlayer.start();
+            Intent intent = new Intent(this ,TrackActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_locate) {
             mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.navbut);

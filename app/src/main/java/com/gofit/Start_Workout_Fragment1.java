@@ -132,7 +132,7 @@ public class Start_Workout_Fragment1 extends Fragment {
 
                 data.put("time",array[0]+":"+array[1]);
                 data.put("completed",true);
-               if (position+1 < mParam1.size())
+               if (position+1 <= mParam1.size())
                     mListener.onFragmentInteraction(position+1,data);
             }
         });

@@ -1,6 +1,7 @@
 package com.gofit;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.transition.Slide;
@@ -12,12 +13,13 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ExerciseListActivity extends AppCompatActivity implements NavigationListener{
+public class ExerciseListActivity extends MainActivity implements NavigationListener , ExerciseRecycler.OnFragmentInteractionListener{
     ArrayList selectedList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_list);
+        super.createDrawer();
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             if (extras.getSerializable("shoulder")!= null)
@@ -36,6 +38,19 @@ public class ExerciseListActivity extends AppCompatActivity implements Navigatio
     @Override
     public void navigate(View v, int position) {
 
+        ImageView imageView = (ImageView)v;
+        int id = imageView.getId();
+        String idStr = getResources().getResourceName(id);
+        Intent intent = new Intent(getApplicationContext(),ViewPagerActivity.class);
+        intent.putExtra("id",idStr);
+
+        intent.putExtra("selectedlist",selectedList);
+        intent.putExtra("position",position);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onFragmentInteraction(View v , int position) {
         ImageView imageView = (ImageView)v;
         int id = imageView.getId();
         String idStr = getResources().getResourceName(id);

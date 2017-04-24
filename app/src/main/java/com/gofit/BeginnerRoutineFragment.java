@@ -30,7 +30,7 @@ public class BeginnerRoutineFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     ArrayList list  = new ArrayList();
     // TODO: Rename and change types of parameters
-    private String mParam1;
+    private int mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
@@ -56,10 +56,11 @@ public class BeginnerRoutineFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-    public static BeginnerRoutineFragment newInstance(ArrayList list) {
+    public static BeginnerRoutineFragment newInstance(ArrayList list, int trackerSize) {
         BeginnerRoutineFragment fragment = new BeginnerRoutineFragment();
         Bundle args = new Bundle();
         args.putSerializable("list",list);
+        args.putInt("size",trackerSize);
         fragment.setArguments(args);
         return fragment;
     }
@@ -68,7 +69,7 @@ public class BeginnerRoutineFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam1 = getArguments().getInt("size");
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -98,7 +99,7 @@ public class BeginnerRoutineFragment extends Fragment {
         begin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.beginWorkout(list);
+                mListener.beginWorkout(list ,mParam1);
             }
         });
         adapter.setOnItemClickListener(listener,getActivity());
@@ -142,6 +143,6 @@ public class BeginnerRoutineFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(View v, int position);
-        void beginWorkout(ArrayList list);
+        void beginWorkout(ArrayList list ,int size);
     }
 }

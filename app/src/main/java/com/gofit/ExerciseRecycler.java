@@ -83,15 +83,23 @@ public class ExerciseRecycler extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_exercise_recycler, container, false);
         recycler = (RecyclerView)view.findViewById(R.id.cardList);
-        layoutManager = new GridLayoutManager(getContext(),2);
-        navigationListener = (NavigationListener) getActivity();
+
+        if (getActivity().getClass().getSimpleName().equals("TrackActivity"))
+        {
+            layoutManager = new LinearLayoutManager(getContext());
+        }
+        else
+        {
+            layoutManager = new GridLayoutManager(getContext(),2);
+        }
+        //navigationListener = (NavigationListener) getActivity();
         recycler.setLayoutManager(layoutManager);
         final MyAdapter adapter = new MyAdapter(mParam1,getContext());
         recycler.setAdapter(adapter);
         MyAdapter.OnItemClickListener listener = new MyAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                navigationListener.navigate(v,position);
+                mListener.onFragmentInteraction(v,position);
 
             }
 
@@ -105,20 +113,20 @@ public class ExerciseRecycler extends Fragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+           // mListener.onFragmentInteraction(uri);
         }
     }
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
 
     @Override
     public void onDetach() {
@@ -138,6 +146,6 @@ public class ExerciseRecycler extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(View v , int position);
     }
 }
