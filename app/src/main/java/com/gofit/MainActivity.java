@@ -88,6 +88,8 @@ MediaPlayer mediaPlayer;
         }
         navigationView.setNavigationItemSelectedListener(this);
         DatabaseReference childRef = FirebaseDatabase.getInstance().getReference().child("exercisedata").getRef();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference newref =ref.child("users/"+user.getUid());
 
 
         final ExerciseData data;

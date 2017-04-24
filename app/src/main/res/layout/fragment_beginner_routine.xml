@@ -12,11 +12,10 @@
     <android.support.v7.widget.RecyclerView
 
         android:layout_width="match_parent"
-        android:layout_height="508dp"
+        android:layout_height="500dp"
         android:id="@+id/beginnerlist"
-        android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/button2"
-        android:layout_marginTop="11dp">
+        android:layout_marginTop="10dp">
     </android.support.v7.widget.RecyclerView>
 
     <Button

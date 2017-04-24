@@ -3,10 +3,20 @@ package com.gofit;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Chronometer;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -22,9 +32,10 @@ public class Start_Workout_Fragment1 extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    Chronometer chrono;
+    int position =0;
     // TODO: Rename and change types of parameters
-    private String mParam1;
+    private ArrayList mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
@@ -50,13 +61,22 @@ public class Start_Workout_Fragment1 extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+    public static Start_Workout_Fragment1 newInstance(ArrayList beginner, int position) {
+        Start_Workout_Fragment1 fragment = new Start_Workout_Fragment1();
+        Bundle args = new Bundle();
+        args.putSerializable("beginnerlist",beginner);
+        args.putInt("position",position);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mParam1 = (ArrayList) getArguments().getSerializable("beginnerlist");
+            position = getArguments().getInt("position");
         }
     }
 
@@ -64,14 +84,68 @@ public class Start_Workout_Fragment1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_start__workout1, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_start__workout1, container, false);
+        ImageView image = (ImageView) rootView.findViewById(R.id.strt_img1);
+        final HashMap data =(HashMap)mParam1.get(position);
+        Picasso.with(getContext()).load((String) data.get("imageurl")).into(image);
+        Button begin = (Button) rootView.findViewById(R.id.strt_btn1);
+        Button done = (Button) rootView.findViewById(R.id.strt_btn2);
+        chrono = ((Chronometer) rootView.findViewById(R.id.strt_chrono));
+        chrono.setText("00:00");
+//        chrono.setBase(SystemClock.elapsedRealtime());
+//        chrono.start();
+        chrono.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+            @Override
+            public void onChronometerTick(Chronometer chronometer) {
+                long time = SystemClock.elapsedRealtime() - chronometer.getBase();
+                int h   = (int)(time /3600000);
+                int m = (int)(time - h*3600000)/60000;
+                int s= (int)(time - h*3600000- m*60000)/1000 ;
+                String hh = h < 10 ? "0"+h: h+"";
+                String mm = m < 10 ? "0"+m: m+"";
+                String ss = s < 10 ? "0"+s: s+"";
+                chrono.setText(mm+":"+ss);
+                if( chronometer.getText().toString().equalsIgnoreCase("00:10")) {
+                    Toast.makeText(getContext(),
+                            "time reached", Toast.LENGTH_SHORT).show();
+                    chrono.stop();
+                }
+            }
+        });
+//        chrono.setBase(SystemClock.elapsedRealtime());
+//        chrono.start();
+        begin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                chrono.setBase(SystemClock.elapsedRealtime());
+                chrono.start();
+            }
+        });
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               chrono.stop();
+                long elapsedMillis = SystemClock.elapsedRealtime() - chrono.getBase();
+                String chronoText = chrono.getText().toString();
+                String array[] = chronoText.split(":");
+
+                data.put("time",array[0]+":"+array[1]);
+                data.put("completed",true);
+               if (position+1 < mParam1.size())
+                    mListener.onFragmentInteraction(position+1,data);
+            }
+        });
+        return rootView;
     }
 
+
+
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+    public void onButtonPressed(int position) {
+//        if (mListener != null) {
+//            mListener.onFragmentInteraction(uri);
+//        }
     }
 
     @Override
@@ -103,6 +177,6 @@ public class Start_Workout_Fragment1 extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(int position, HashMap data);
     }
 }

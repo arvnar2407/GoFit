@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -77,7 +78,7 @@ public class BeginnerRoutineFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView =  inflater.inflate(R.layout.fragment_beginner_routine, container, false);
-        ArrayList list = (ArrayList) getArguments().getSerializable("list");
+        final ArrayList list = (ArrayList) getArguments().getSerializable("list");
 
         RecyclerView beginnerRecycler = (RecyclerView) rootView.findViewById(R.id.beginnerlist);
         MyAdapter adapter = new MyAdapter(list,getContext());
@@ -93,6 +94,13 @@ public class BeginnerRoutineFragment extends Fragment {
             }
 
         };
+        Button begin = (Button) rootView.findViewById(R.id.button2);
+        begin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.beginWorkout(list);
+            }
+        });
         adapter.setOnItemClickListener(listener,getActivity());
         return rootView;
     }
@@ -134,5 +142,6 @@ public class BeginnerRoutineFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(View v, int position);
+        void beginWorkout(ArrayList list);
     }
 }

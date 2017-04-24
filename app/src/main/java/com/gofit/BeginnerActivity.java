@@ -2,12 +2,14 @@ package com.gofit;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,14 +21,18 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class BeginnerActivity extends AppCompatActivity implements BeginnerRoutineFragment.OnFragmentInteractionListener {
+public class BeginnerActivity extends AppCompatActivity implements BeginnerRoutineFragment.OnFragmentInteractionListener,Start_Workout_Fragment1.OnFragmentInteractionListener {
     final ArrayList beginner = new ArrayList();
+    DatabaseReference history = FirebaseDatabase.getInstance().getReference().child("history").getRef();;
+    DatabaseReference childRef;
+    DatabaseReference userRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beginner);
-        DatabaseReference childRef = FirebaseDatabase.getInstance().getReference().child("beginner").getRef();
-
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        childRef = ref.child("beginner").getRef();
+        userRef =ref.child("users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid());
 
 
 
@@ -56,14 +62,31 @@ public class BeginnerActivity extends AppCompatActivity implements BeginnerRouti
 
     @Override
     public void onFragmentInteraction(View v, int position) {
-        //ImageView imageView = (ImageView)v;
-//        int id = imageView.getId();
-//        String idStr = getResources().getResourceName(id);
+
         Intent intent = new Intent(getApplicationContext(),ViewPagerActivity.class);
-        //intent.putExtra("id",idStr);
+
 
         intent.putExtra("selectedlist",beginner);
         intent.putExtra("position",position);
         startActivity(intent);
     }
+
+    @Override
+    public void beginWorkout(ArrayList list) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.beginnercontainer, Start_Workout_Fragment1.newInstance(list,0)).addToBackStack(null).commit();
+    }
+
+    @Override
+    public void onFragmentInteraction(int position,HashMap data) {
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.beginnercontainer, Start_Workout_Fragment1.newInstance(beginner,position)).addToBackStack(null).commit();
+        writeData(position,data);
+
+    }
+    public void writeData(int position,HashMap data)
+    {
+       // history.setValue(data);
+        userRef.child("Beginner/"+data.get("id").toString()).setValue(data);
+    }
+
 }
