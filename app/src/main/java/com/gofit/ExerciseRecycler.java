@@ -43,6 +43,7 @@ public class ExerciseRecycler extends Fragment {
     private ArrayList mParam1;
     private String mParam2;
     MyAdapter adapter =null;
+    ExerciseData data;
     private OnFragmentInteractionListener mListener;
 
     public ExerciseRecycler() {
@@ -90,6 +91,7 @@ public class ExerciseRecycler extends Fragment {
         // Inflate the layout for this fragment
 
         View view =  inflater.inflate(R.layout.fragment_exercise_recycler, container, false);
+         data = new ExerciseData(mParam1);
         setHasOptionsMenu(true);
         if (mParam1.size() ==0)
         {
@@ -164,6 +166,28 @@ public class ExerciseRecycler extends Fragment {
 
         // Locate MenuItem with ShareActionProvider
         SearchView srch = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        if(srch!=null)
+        {
+            srch.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+            {
+
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+
+                    int pod = data.findString(query);
+                    Log.i("in serach","Hello"+ pod);
+                    if (pod >= 0)
+                        recycler.scrollToPosition(pod);
+                    return true;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    Log.i("in serach","Hello");
+                    return true;
+                }
+            });
+        }
         menu.findItem(R.id.menu_item_share).setVisible(false);
         if(getActivity().getClass().getSimpleName().equals("TrackActivity")) {
             menu.findItem(R.id.action_search).setVisible(false);
@@ -174,6 +198,9 @@ public class ExerciseRecycler extends Fragment {
 
 
     }
+
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){

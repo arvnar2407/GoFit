@@ -132,7 +132,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.d("onClick", url);
         GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData();
         getNearbyPlacesData.execute(DataTransfer);
-        Toast.makeText(MapsActivity.this, "Nearby Restaurants", Toast.LENGTH_LONG).show();
+        Toast.makeText(MapsActivity.this, "Nearby Fitness Centers", Toast.LENGTH_LONG).show();
 
 
     }
@@ -238,7 +238,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         googlePlacesUrl.append("&radius=" + PROXIMITY_RADIUS);
         googlePlacesUrl.append("&type=" + nearbyPlace);
         googlePlacesUrl.append("&sensor=true");
-        googlePlacesUrl.append("&key=" + "AIzaSyATuUiZUkEc_UgHuqsBJa1oqaODI-3mLs0");
+        googlePlacesUrl.append("&key=" + "AIzaSyB5HTIRI50JYUOmpef72nyZUpSyaES_FxI");
         Log.d("getUrl", googlePlacesUrl.toString());
         return (googlePlacesUrl.toString());
     }
