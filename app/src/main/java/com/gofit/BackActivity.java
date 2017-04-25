@@ -7,7 +7,18 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class BackActivity extends MainActivity {
 
@@ -18,6 +29,45 @@ public class BackActivity extends MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_back);
         super.createDrawer();
+//        DatabaseReference childRef = FirebaseDatabase.getInstance().getReference().child("exercisedata").getRef();
+//        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+//        DatabaseReference newref =ref.child("users/"+user.getUid());
+//
+//
+//        final ExerciseData data;
+//        childRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                HashMap map = (HashMap) dataSnapshot.getValue();
+//                Iterator it = map.entrySet().iterator();
+//                while (it.hasNext()) {
+//                    Map.Entry pair = (Map.Entry)it.next();
+//
+//                    if(pair.getKey().equals("shoulder"))
+//                    {
+//                        shoulder.add(pair.getValue());
+//                    }
+//                    else if(pair.getKey().equals("biceps"))
+//                    {
+//                        biceps.add(pair.getValue());
+//                    }
+//                    else if(pair.getKey().equals("abs"))
+//                    {
+//                        abs.add(pair.getValue());
+//                    }
+//
+//                    it.remove(); // avoids a ConcurrentModificationException
+//                }
+//
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                Log.d("err","err");
+//            }
+//        });
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
