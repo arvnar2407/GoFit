@@ -24,12 +24,12 @@ public class LaunchscreenActivity extends AppCompatActivity implements LaunchFra
 
     @Override
     public void onFragmentInteraction(View v) {
-        if (v.getId() == R.id.btn_letsgo1)
+        if (v.getId() == R.id.btn_letsgo)
         {
             Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
             startActivity(intent);
         }
-        else if (v.getId()==R.id.btn_about1)
+        else if (v.getId()==R.id.btn_about)
         {
             getSupportFragmentManager().beginTransaction().replace(R.id.launch,AboutFragment.newInstance()).addToBackStack(null).commit();
         }
