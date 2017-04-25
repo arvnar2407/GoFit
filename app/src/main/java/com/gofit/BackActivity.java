@@ -1,6 +1,7 @@
 package com.gofit;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -9,6 +10,8 @@ import android.os.Bundle;
 import android.view.View;
 
 public class BackActivity extends MainActivity {
+
+    MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +23,8 @@ public class BackActivity extends MainActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                mediaPlayer = MediaPlayer.create(BackActivity.this, R.raw.float2);
+                mediaPlayer.start();
                 startActivity(intent);
                 finish();
             }

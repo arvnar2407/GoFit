@@ -28,13 +28,20 @@
         android:id="@+id/desimg"
         android:src="@drawable/img3"/>
 
-    <TextView
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/desimg">
+
+        <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="10dp"
-        android:layout_below="@+id/desimg"
+            android:textSize="16sp"
+
         android:text="@string/hello_blank_fragment"
         android:id="@+id/description"/>
+    </ScrollView>
 
     </RelativeLayout>
 

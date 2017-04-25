@@ -53,6 +53,8 @@ MediaPlayer mediaPlayer;
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),BackActivity.class);
+                mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.float2);
+                mediaPlayer.start();
                 startActivity(intent);
 
             }
@@ -116,6 +118,8 @@ MediaPlayer mediaPlayer;
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),ExerciseListActivity.class);
                 intent.putExtra("shoulder",selected);
+                mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.textclick);
+                mediaPlayer.start();
                 startActivity(intent);
 
             }
