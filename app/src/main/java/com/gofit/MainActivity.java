@@ -53,8 +53,6 @@ MediaPlayer mediaPlayer;
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),BackActivity.class);
-                mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.float2);
-                mediaPlayer.start();
                 startActivity(intent);
 
             }
