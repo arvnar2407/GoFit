@@ -81,7 +81,12 @@ public class ExerciseRecycler extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         View view =  inflater.inflate(R.layout.fragment_exercise_recycler, container, false);
+        if (mParam1.size() ==0)
+        {
+            return view;
+        }
         recycler = (RecyclerView)view.findViewById(R.id.cardList);
 
         if (getActivity().getClass().getSimpleName().equals("TrackActivity"))
@@ -99,8 +104,9 @@ public class ExerciseRecycler extends Fragment {
         MyAdapter.OnItemClickListener listener = new MyAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                mListener.onFragmentInteraction(v,position);
-
+                if (mListener!=null) {
+                    mListener.onFragmentInteraction(v, position);
+                }
             }
 
         };

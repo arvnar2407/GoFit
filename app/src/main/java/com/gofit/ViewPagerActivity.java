@@ -62,9 +62,9 @@ public class ViewPagerActivity extends AppCompatActivity {
         public Fragment getItem(int pos) {
             switch(pos) {
 
-                case 0: return ImageFragment.newInstance(map);
-                case 1: return VideoFragment.newInstance(map);
-                case 2: return DescriptionFragment.newInstance(map);
+                case 1: return ImageFragment.newInstance(map);
+                case 2: return VideoFragment.newInstance(map);
+                case 0: return DescriptionFragment.newInstance(map);
 
                 default: return ImageFragment.newInstance(map);
             }

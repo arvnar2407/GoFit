@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
@@ -32,7 +34,9 @@ public class Start_Workout_Fragment1 extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    String timerText=null;
     Chronometer chrono;
+    long timeWhenStopped = 0;
     int position =0;
     // TODO: Rename and change types of parameters
     private ArrayList mParam1;
@@ -69,11 +73,43 @@ public class Start_Workout_Fragment1 extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
+
+    }
+    @Override
+     public void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+        System.out.println("TAG, onSavedInstanceState");
+
+        chrono.stop();
+        timeWhenStopped = chrono.getBase() - SystemClock.elapsedRealtime();
+
+        timerText = chrono.getText().toString();
+        outState.putString("savedText", timerText);
+        outState.putLong("stopTime",timeWhenStopped);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (savedInstanceState!=null)
+        {
+            timerText = savedInstanceState.get("savedText").toString();
+            timeWhenStopped = (long) savedInstanceState.get("stopTime");
+            chrono.setText(timerText);
+            chrono.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+            chrono.start();
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mParam1 = (ArrayList) getArguments().getSerializable("beginnerlist");
             position = getArguments().getInt("position");
@@ -84,6 +120,7 @@ public class Start_Workout_Fragment1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         View rootView = inflater.inflate(R.layout.fragment_start__workout1, container, false);
         ImageView image = (ImageView) rootView.findViewById(R.id.strt_img1);
         final HashMap data =(HashMap)mParam1.get(position);
@@ -92,8 +129,7 @@ public class Start_Workout_Fragment1 extends Fragment {
         Button done = (Button) rootView.findViewById(R.id.strt_btn2);
         chrono = ((Chronometer) rootView.findViewById(R.id.strt_chrono));
         chrono.setText("00:00");
-//        chrono.setBase(SystemClock.elapsedRealtime());
-//        chrono.start();
+
         chrono.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
             @Override
             public void onChronometerTick(Chronometer chronometer) {
@@ -112,14 +148,18 @@ public class Start_Workout_Fragment1 extends Fragment {
                 }
             }
         });
-//        chrono.setBase(SystemClock.elapsedRealtime());
-//        chrono.start();
+
         begin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (timeWhenStopped ==0){
                 chrono.setBase(SystemClock.elapsedRealtime());
                 chrono.start();
+                }
+                else
+                {
+                    chrono.start();
+                }
             }
         });
         done.setOnClickListener(new View.OnClickListener() {
@@ -163,6 +203,24 @@ public class Start_Workout_Fragment1 extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        chrono.stop();
+        timeWhenStopped = chrono.getBase() - SystemClock.elapsedRealtime();
+
+        timerText = chrono.getText().toString();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (chrono!=null && timerText!=null)
+            chrono.setText(timerText);
+            chrono.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+
     }
 
     /**

@@ -91,21 +91,28 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAuth.signInWithEmailAndPassword(userNameET.getText().toString(), passwordET.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d("success", "signInWithEmail:onComplete:" + task.isSuccessful());
+                if (isEmailValid(userNameET.getText().toString()) && passwordET.getText().toString().length()>4){
+                    mAuth.signInWithEmailAndPassword(userNameET.getText().toString(), passwordET.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            Log.d("success", "signInWithEmail:onComplete:" + task.isSuccessful());
 
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
-                        if (!task.isSuccessful()) {
-                            Log.w("fail", "signInWithEmail:failed", task.getException());
+                            // If sign in fails, display a message to the user. If sign in succeeds
+                            // the auth state listener will be notified and logic to handle the
+                            // signed in user can be handled in the listener.
+                            if (!task.isSuccessful()) {
+                                Log.w("fail", "signInWithEmail:failed", task.getException());
 
+                            }
                         }
-                    }
-                });
+                    });
             }
+                else
+                {
+                    showSnackbar("Please Enter Valid Login Details: Length of Password should be atleast four characters");
+                }
+            }
+
         });
 
         Button createButton = (Button) findViewById(R.id.btn_signup);

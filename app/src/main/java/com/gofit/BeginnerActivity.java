@@ -3,6 +3,7 @@ package com.gofit;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -29,9 +30,26 @@ public class BeginnerActivity extends MainActivity implements BeginnerRoutineFra
     ArrayList tracker = new ArrayList();
     DatabaseReference childRef;
     DatabaseReference userRef;
+    Fragment mContent;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //mContent = getSupportFragmentManager().getFragment(outState, "myFragmentName");
+        //Save  the fragment's instance
+
+        if(mContent != null)
+            getSupportFragmentManager().putFragment(outState, "frag", mContent);
+    }
+
+    @Override
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(savedInstanceState != null)
+        {
+            //Here I get NullPointerException
+
+            mContent = getSupportFragmentManager().getFragment(savedInstanceState, "frag");
+        }
         setContentView(R.layout.activity_beginner);
         super.createDrawer();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
@@ -74,7 +92,8 @@ public class BeginnerActivity extends MainActivity implements BeginnerRoutineFra
                 {
                     showAlert(1);
                 }
-                else {
+                else if(savedInstanceState==null) {
+
                     getSupportFragmentManager().beginTransaction().replace(R.id.beginnercontainer, BeginnerRoutineFragment.newInstance(beginner, tracker.size())).commit();
                 }
             }

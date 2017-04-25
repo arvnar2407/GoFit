@@ -2,6 +2,7 @@ package com.gofit;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -33,6 +34,9 @@ public class TrackActivity extends MainActivity implements ExerciseRecycler.OnFr
     DatabaseReference childRef;
     DatabaseReference userRef;
     ArrayList history;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,14 +50,19 @@ public class TrackActivity extends MainActivity implements ExerciseRecycler.OnFr
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 HashMap map = (HashMap) dataSnapshot.getValue();
-                Iterator it = map.entrySet().iterator();
-                while (it.hasNext()) {
-                    Map.Entry pair = (Map.Entry)it.next();
-                    history.add(pair.getValue());
-                    it.remove(); // avoids a ConcurrentModificationException
+                if (map!=null) {
+                    Iterator it = map.entrySet().iterator();
+                    while (it.hasNext()) {
+                        Map.Entry pair = (Map.Entry) it.next();
+                        history.add(pair.getValue());
+                        it.remove(); // avoids a ConcurrentModificationException
+                    }
+                    getSupportFragmentManager().beginTransaction().replace(R.id.trackcontainer, ExerciseRecycler.newInstance(history)).addToBackStack(null).commit();
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.trackcontainer,ExerciseRecycler.newInstance(history)).addToBackStack(null).commit();
-
+                else
+                {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.trackcontainer, ExerciseRecycler.newInstance(history)).addToBackStack(null).commit();
+                }
             }
 
             @Override
