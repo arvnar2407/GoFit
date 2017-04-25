@@ -97,9 +97,14 @@ public class Signup extends AppCompatActivity {
         }
         return true;
     }
+    public void showSnackbar(String s){
+        Snackbar snackbar = Snackbar.make(userNameET,s, Snackbar.LENGTH_LONG);
+        snackbar.show();
+    }
     // create a new user in Firebase
     public void createUser() {
-        if(userNameET.getText() == null ||  !isEmailValid(userNameET.getText().toString())) {
+        if(userNameET.getText() == null ||  !isEmailValid(userNameET.getText().toString()) || passwordET.getText().toString().length()<4) {
+            showSnackbar("Please Enter Valid Login Details: Length of Password should be atleast four characters");
             return;
         }
 
