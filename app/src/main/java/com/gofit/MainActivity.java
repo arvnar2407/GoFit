@@ -142,8 +142,6 @@ MediaPlayer mediaPlayer;
                 ArrayList shoulderList;
                 shoulderList = getSelectedList(biceps);
                 intent.putExtra("shoulder",shoulderList);
-                mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.textclick);
-                mediaPlayer.start();
                 startActivity(intent);
             }
         });
