@@ -9,6 +9,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.widget.ImageView;
+
+import com.podcopic.animationlib.library.AnimationType;
+import com.podcopic.animationlib.library.StartSmartAnimation;
 
 public class LaunchFragment extends Fragment {
 
@@ -50,6 +54,7 @@ public class LaunchFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_launch, container, false);
         Button go = (Button) view.findViewById(R.id.btn_letsgo);
+
         go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,6 +72,9 @@ public class LaunchFragment extends Fragment {
                 mListener.onFragmentInteraction(v);
             }
         });
+
+
+
     return view;
     }
 

@@ -1,5 +1,6 @@
 package com.gofit;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
+import jp.wasabeef.recyclerview.animators.FlipInRightYAnimator;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -87,6 +90,11 @@ public class BeginnerRoutineFragment extends Fragment {
         LinearLayoutManager layout= new LinearLayoutManager(getContext());
         beginnerRecycler.setLayoutManager(layout);
         beginnerRecycler.setAdapter(adapter);
+
+//        itemAnimation();
+//        adapterAnimation();
+
+
         MyAdapter.OnItemClickListener listener = new MyAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
@@ -104,7 +112,28 @@ public class BeginnerRoutineFragment extends Fragment {
         });
         adapter.setOnItemClickListener(listener,getActivity());
         return rootView;
+
+
+
+
     }
+
+//
+//    private void itemAnimation() {
+//        FlipInRightYAnimator animator = new FlipInRightYAnimator();
+//        animator.setAddDuration(800);
+//        animator.setRemoveDuration(800);
+//        animator.setMoveDuration(800);
+//        animator.setChangeDuration(800);
+//
+//        beginnerRecycler.setItemAnimator(animator);
+//    }
+//
+//    private void adapterAnimation() {
+//        AlphaInAnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(adapter);
+//        beginnerRecycler.setAdapter(new ScaleInAnimationAdapter(alphaAdapter));
+//    }
+//
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -129,6 +158,7 @@ public class BeginnerRoutineFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
 
     /**
      * This interface must be implemented by activities that contain this
