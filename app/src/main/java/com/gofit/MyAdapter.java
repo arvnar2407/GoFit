@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -40,6 +42,7 @@ public class MyAdapter extends android.support.v7.widget.RecyclerView.Adapter<My
 
     public interface OnItemClickListener {
         public void onItemClick(View v, int position);
+        public void onItemLongClick(View v, int position);
     }
     Boolean selected = false;
     Boolean deletion = false;
@@ -66,6 +69,10 @@ public class MyAdapter extends android.support.v7.widget.RecyclerView.Adapter<My
         {
             view =LayoutInflater.from(parent.getContext()).inflate(R.layout.beginner_item_layout, parent,false);
         }
+        else if (context.getClass().getSimpleName().equals("TrackActivity"))
+        {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.trackitemlayout, parent, false);
+        }
         else {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.itemlayout, parent, false);
         }
@@ -81,6 +88,22 @@ public class MyAdapter extends android.support.v7.widget.RecyclerView.Adapter<My
         if (context.getClass().getSimpleName().equals("BeginnerActivity"))
         {
             holder.name.setText(map.get("name").toString());
+        }
+        else if (context.getClass().getSimpleName().equals("TrackActivity"))
+        {
+            holder.name.setText(map.get("name").toString());
+            holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked)
+                        map.put("selection", true);
+                    else
+                        map.put("selection",false);
+                }
+
+
+
+            });
         }
         //holder.image.setImageResource(R.drawable.img1);
     }
@@ -101,10 +124,13 @@ public class MyAdapter extends android.support.v7.widget.RecyclerView.Adapter<My
         public ImageView image;
         public TextView name;
         public TextView description;
-        public ViewHolder(View itemView) {
+        CheckBox checkBox;
+        int row_index=0;
+        public ViewHolder(final View itemView) {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.btxt1);
             image = (ImageView) itemView.findViewById(R.id.img1);
+            checkBox = (CheckBox) itemView.findViewById(R.id.checkbox);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -113,7 +139,16 @@ public class MyAdapter extends android.support.v7.widget.RecyclerView.Adapter<My
                         mItemClickListener.onItemClick(image,getPosition());
                 }
             });
-
+//            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+//                @Override
+//                public boolean onLongClick(View v) {
+//
+//
+//                    if (mItemClickListener != null)
+//                        mItemClickListener.onItemLongClick(itemView,getPosition());
+//                    return true;
+//                }
+//            });
         }
 
 

@@ -32,10 +32,11 @@ public class BeginnerRoutineFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     ArrayList list  = new ArrayList();
+    MyAdapter adapter= null;
     // TODO: Rename and change types of parameters
     private int mParam1;
     private String mParam2;
-
+    RecyclerView beginnerRecycler = null;
     private OnFragmentInteractionListener mListener;
 
     public BeginnerRoutineFragment() {
@@ -84,21 +85,26 @@ public class BeginnerRoutineFragment extends Fragment {
         View rootView =  inflater.inflate(R.layout.fragment_beginner_routine, container, false);
         final ArrayList list = (ArrayList) getArguments().getSerializable("list");
 
-        RecyclerView beginnerRecycler = (RecyclerView) rootView.findViewById(R.id.beginnerlist);
-        MyAdapter adapter = new MyAdapter(list,getContext());
+        beginnerRecycler = (RecyclerView) rootView.findViewById(R.id.beginnerlist);
+        adapter = new MyAdapter(list,getContext());
 
         LinearLayoutManager layout= new LinearLayoutManager(getContext());
         beginnerRecycler.setLayoutManager(layout);
-        beginnerRecycler.setAdapter(adapter);
+        //beginnerRecycler.setAdapter(adapter);
 
-//        itemAnimation();
-//        adapterAnimation();
+        itemAnimation();
+        adapterAnimation();
 
 
         MyAdapter.OnItemClickListener listener = new MyAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
                 mListener.onFragmentInteraction(v,position);
+
+            }
+
+            @Override
+            public void onItemLongClick(View v, int position) {
 
             }
 
@@ -118,21 +124,21 @@ public class BeginnerRoutineFragment extends Fragment {
 
     }
 
-//
-//    private void itemAnimation() {
-//        FlipInRightYAnimator animator = new FlipInRightYAnimator();
-//        animator.setAddDuration(800);
-//        animator.setRemoveDuration(800);
-//        animator.setMoveDuration(800);
-//        animator.setChangeDuration(800);
-//
-//        beginnerRecycler.setItemAnimator(animator);
-//    }
-//
-//    private void adapterAnimation() {
-//        AlphaInAnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(adapter);
-//        beginnerRecycler.setAdapter(new ScaleInAnimationAdapter(alphaAdapter));
-//    }
+
+    private void itemAnimation() {
+        FlipInRightYAnimator animator = new FlipInRightYAnimator();
+        animator.setAddDuration(800);
+        animator.setRemoveDuration(800);
+        animator.setMoveDuration(800);
+        animator.setChangeDuration(800);
+
+        beginnerRecycler.setItemAnimator(animator);
+    }
+
+    private void adapterAnimation() {
+        AlphaInAnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(adapter);
+        beginnerRecycler.setAdapter(new ScaleInAnimationAdapter(alphaAdapter));
+    }
 
 
     // TODO: Rename method, update argument and hook method into UI event

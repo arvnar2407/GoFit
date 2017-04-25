@@ -42,9 +42,14 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     FirebaseUser user;
 MediaPlayer mediaPlayer;
+    ArrayList shoulder = null ;
+    ArrayList biceps =null;
+    ArrayList abs=null;
+    ArrayList selected =null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
         setContentView(R.layout.activity_main);
         user = FirebaseAuth.getInstance().getCurrentUser();
         createDrawer();
@@ -53,8 +58,6 @@ MediaPlayer mediaPlayer;
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),BackActivity.class);
-                mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.float2);
-                mediaPlayer.start();
                 startActivity(intent);
 
             }
@@ -62,13 +65,12 @@ MediaPlayer mediaPlayer;
         DatabaseReference childRef = FirebaseDatabase.getInstance().getReference().child("exercisedata").getRef();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         DatabaseReference newref =ref.child("users/"+user.getUid());
-
+        shoulder = new ArrayList();
+        biceps = new ArrayList();
+        abs = new ArrayList();
+        selected = new ArrayList();
 
         final ExerciseData data;
-        final ArrayList shoulder = new ArrayList();
-        final ArrayList biceps = new ArrayList();
-        final ArrayList abs = new ArrayList();
-        final ArrayList selected = new ArrayList();
         childRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -93,15 +95,7 @@ MediaPlayer mediaPlayer;
 
                     it.remove(); // avoids a ConcurrentModificationException
                 }
-                HashMap selectedMap = (HashMap) shoulder.get(0);
 
-                Iterator it1 = selectedMap.entrySet().iterator();
-                while (it1.hasNext()) {
-                    Map.Entry pair = (Map.Entry)it1.next();
-
-                    selected.add(pair.getValue());
-                    it1.remove(); // avoids a ConcurrentModificationException
-                }
 
             }
 
@@ -117,7 +111,10 @@ MediaPlayer mediaPlayer;
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),ExerciseListActivity.class);
-                intent.putExtra("shoulder",selected);
+                ArrayList shoulderList;
+
+                shoulderList = getSelectedList(shoulder);
+                intent.putExtra("shoulder",shoulderList);
                 startActivity(intent);
 
             }
@@ -125,15 +122,37 @@ MediaPlayer mediaPlayer;
         absView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getApplicationContext(),ExerciseListActivity.class);
+                ArrayList shoulderList;
+                shoulderList = getSelectedList(abs);
+                intent.putExtra("shoulder",shoulderList);
+                startActivity(intent);
             }
         });
         bicepsView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getApplicationContext(),ExerciseListActivity.class);
+                ArrayList shoulderList;
+                shoulderList = getSelectedList(biceps);
+                intent.putExtra("shoulder",shoulderList);
+                startActivity(intent);
             }
         });
+    }
+    public ArrayList getSelectedList(ArrayList list)
+    {
+        selected.clear();
+        ArrayList temp = new ArrayList();
+        HashMap selectedMap = (HashMap) list.get(0);
+        Iterator it1 = selectedMap.entrySet().iterator();
+        while (it1.hasNext()) {
+            Map.Entry pair = (Map.Entry)it1.next();
+
+            selected.add(pair.getValue());
+
+        }
+        return selected;
     }
 
     public void createDrawer() {

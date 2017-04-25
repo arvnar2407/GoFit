@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -26,7 +27,7 @@ import java.util.Map;
 
 public class BeginnerActivity extends MainActivity implements BeginnerRoutineFragment.OnFragmentInteractionListener,Start_Workout_Fragment1.OnFragmentInteractionListener {
     final ArrayList beginner = new ArrayList();
-    DatabaseReference history = FirebaseDatabase.getInstance().getReference().child("history").getRef();
+
     ArrayList tracker = new ArrayList();
     DatabaseReference childRef;
     DatabaseReference userRef;
@@ -46,64 +47,67 @@ public class BeginnerActivity extends MainActivity implements BeginnerRoutineFra
         super.onCreate(savedInstanceState);
         if(savedInstanceState != null)
         {
-            //Here I get NullPointerException
+
 
             mContent = getSupportFragmentManager().getFragment(savedInstanceState, "frag");
         }
         setContentView(R.layout.activity_beginner);
         super.createDrawer();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        childRef = ref.child("beginner").getRef();
-        userRef =ref.child("users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid());
-        userRef.child("Beginner").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getValue() != null) {
+        try {
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+            childRef = ref.child("beginner").getRef();
+            userRef = ref.child("users/" + FirebaseAuth.getInstance().getCurrentUser().getUid());
+            userRef.child("Beginner").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue() != null) {
 
+                        HashMap map = (HashMap) dataSnapshot.getValue();
+                        Iterator it = map.entrySet().iterator();
+                        while (it.hasNext()) {
+                            Map.Entry pair = (Map.Entry) it.next();
+                            tracker.add(pair.getValue());
+                            it.remove(); // avoids a ConcurrentModificationException
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.d("err", "err");
+                }
+            });
+
+
+            childRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Log.d("ins", "ins");
                     HashMap map = (HashMap) dataSnapshot.getValue();
                     Iterator it = map.entrySet().iterator();
                     while (it.hasNext()) {
                         Map.Entry pair = (Map.Entry) it.next();
-                        tracker.add(pair.getValue());
+                        beginner.add(pair.getValue());
                         it.remove(); // avoids a ConcurrentModificationException
                     }
+                    if (tracker.size() == beginner.size()) {
+                        showAlert(1);
+                    } else if (savedInstanceState == null) {
+
+                        getSupportFragmentManager().beginTransaction().replace(R.id.beginnercontainer, BeginnerRoutineFragment.newInstance(beginner, tracker.size())).commit();
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.d("err","err");
-            }
-        });
-
-
-        childRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("ins","ins");
-                HashMap map = (HashMap) dataSnapshot.getValue();
-                Iterator it = map.entrySet().iterator();
-                while (it.hasNext()) {
-                    Map.Entry pair = (Map.Entry)it.next();
-                    beginner.add(pair.getValue());
-                    it.remove(); // avoids a ConcurrentModificationException
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.d("err", "err");
                 }
-                if (tracker.size() == beginner.size())
-                {
-                    showAlert(1);
-                }
-                else if(savedInstanceState==null) {
-
-                    getSupportFragmentManager().beginTransaction().replace(R.id.beginnercontainer, BeginnerRoutineFragment.newInstance(beginner, tracker.size())).commit();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.d("err","err");
-            }
-        });
-
+            });
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(this, "Error Downloading data", Toast.LENGTH_LONG).show();
+        }
 
     }
 

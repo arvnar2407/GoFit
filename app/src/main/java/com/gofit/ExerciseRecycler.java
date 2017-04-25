@@ -2,18 +2,25 @@ package com.gofit;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 
 /**
@@ -35,7 +42,7 @@ public class ExerciseRecycler extends Fragment {
     // TODO: Rename and change types of parameters
     private ArrayList mParam1;
     private String mParam2;
-
+    MyAdapter adapter =null;
     private OnFragmentInteractionListener mListener;
 
     public ExerciseRecycler() {
@@ -83,6 +90,7 @@ public class ExerciseRecycler extends Fragment {
         // Inflate the layout for this fragment
 
         View view =  inflater.inflate(R.layout.fragment_exercise_recycler, container, false);
+        setHasOptionsMenu(true);
         if (mParam1.size() ==0)
         {
             return view;
@@ -99,7 +107,7 @@ public class ExerciseRecycler extends Fragment {
         }
         //navigationListener = (NavigationListener) getActivity();
         recycler.setLayoutManager(layoutManager);
-        final MyAdapter adapter = new MyAdapter(mParam1,getContext());
+        adapter = new MyAdapter(mParam1,getContext());
         recycler.setAdapter(adapter);
         MyAdapter.OnItemClickListener listener = new MyAdapter.OnItemClickListener() {
             @Override
@@ -107,6 +115,15 @@ public class ExerciseRecycler extends Fragment {
                 if (mListener!=null) {
                     mListener.onFragmentInteraction(v, position);
                 }
+            }
+            @Override
+            public void onItemLongClick(View v, int position)
+            {
+                v.setBackgroundColor(Color.parseColor("#567845"));
+                HashMap map = (HashMap) mParam1.get(position);
+                map.put("selected",true);
+                mParam1.add(position,map);
+
             }
 
         };
@@ -139,6 +156,48 @@ public class ExerciseRecycler extends Fragment {
         super.onDetach();
         mListener = null;
     }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.toolbar, menu);
+
+        // Locate MenuItem with ShareActionProvider
+        SearchView srch = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        menu.findItem(R.id.menu_item_share).setVisible(false);
+        if(getActivity().getClass().getSimpleName().equals("TrackActivity")) {
+            menu.findItem(R.id.action_search).setVisible(false);
+            menu.findItem(R.id.delete).setVisible(true);
+        }
+        // Fetch and store ShareActionProvider
+
+
+
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.delete:
+                Log.d("hello","hello");
+                for (int i=0;i<mParam1.size();i++)
+                {
+                    HashMap temp = (HashMap) mParam1.get(i);
+                    Boolean temp1 = (Boolean) temp.get("selection");
+                    if (temp1!=null && temp1==true)
+                    {
+                        mParam1.remove(i);
+                        adapter.notifyItemRemoved(i);
+                        adapter.notifyItemRangeChanged(i, adapter.getItemCount() - i);
+                        adapter.notifyItemRangeRemoved(i, adapter.getItemCount() - i);
+                    }
+                }
+
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this

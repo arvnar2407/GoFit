@@ -42,6 +42,7 @@ public class TrackActivity extends MainActivity implements ExerciseRecycler.OnFr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_track);
         super.createDrawer();
+
         childRef = ref.child("beginner").getRef();
         history = new ArrayList();
         userRef =ref.child("users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Beginner");
