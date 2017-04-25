@@ -133,7 +133,7 @@ public class BeginnerRoutineFragment extends Fragment {
 //        AlphaInAnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(adapter);
 //        beginnerRecycler.setAdapter(new ScaleInAnimationAdapter(alphaAdapter));
 //    }
-//
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
