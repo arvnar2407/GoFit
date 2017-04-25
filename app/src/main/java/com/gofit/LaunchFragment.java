@@ -49,7 +49,7 @@ public class LaunchFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_launch, container, false);
-        Button go = (Button) view.findViewById(R.id.btn_letsgo);
+        Button go = (Button) view.findViewById(R.id.btn_letsgo1);
         go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,7 +58,7 @@ public class LaunchFragment extends Fragment {
                 mListener.onFragmentInteraction(v);
             }
         });
-        Button about = (Button) view.findViewById(R.id.btn_about);
+        Button about = (Button) view.findViewById(R.id.btn_about1);
         about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
