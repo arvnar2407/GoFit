@@ -10,9 +10,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.SlideInRightAnimationAdapter;
 import jp.wasabeef.recyclerview.animators.FlipInRightYAnimator;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -90,7 +92,6 @@ public class BeginnerRoutineFragment extends Fragment {
 
         LinearLayoutManager layout= new LinearLayoutManager(getContext());
         beginnerRecycler.setLayoutManager(layout);
-        //beginnerRecycler.setAdapter(adapter);
 
         itemAnimation();
         adapterAnimation();
@@ -131,13 +132,13 @@ public class BeginnerRoutineFragment extends Fragment {
         animator.setRemoveDuration(800);
         animator.setMoveDuration(800);
         animator.setChangeDuration(800);
-
         beginnerRecycler.setItemAnimator(animator);
     }
 
     private void adapterAnimation() {
-        AlphaInAnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(adapter);
-        beginnerRecycler.setAdapter(new ScaleInAnimationAdapter(alphaAdapter));
+        SlideInRightAnimationAdapter alphaAdapter = new SlideInRightAnimationAdapter (adapter);
+        alphaAdapter.setFirstOnly(false);
+        beginnerRecycler.setAdapter(new SlideInRightAnimationAdapter(alphaAdapter));
     }
 
 

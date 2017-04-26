@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.SlideInRightAnimationAdapter;
 import jp.wasabeef.recyclerview.animators.FlipInRightYAnimator;
 
 import java.util.ArrayList;
@@ -114,7 +115,6 @@ public class ExerciseRecycler extends Fragment {
         //navigationListener = (NavigationListener) getActivity();
         recycler.setLayoutManager(layoutManager);
         adapter = new MyAdapter(mParam1,getContext());
-       // recycler.setAdapter(adapter);
 
         itemAnimation();
         adapterAnimation();
@@ -145,8 +145,10 @@ public class ExerciseRecycler extends Fragment {
     }
 
     private void adapterAnimation() {
-        AlphaInAnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(adapter);
-        recycler.setAdapter(new AlphaInAnimationAdapter(alphaAdapter));
+        SlideInRightAnimationAdapter alphaAdapter = new SlideInRightAnimationAdapter (adapter);
+        alphaAdapter.setDuration(2000);
+        alphaAdapter.setFirstOnly(false);
+        recycler.setAdapter(new SlideInRightAnimationAdapter(alphaAdapter));
     }
 
     private void itemAnimation() {
@@ -242,7 +244,6 @@ public class ExerciseRecycler extends Fragment {
                             data.removeItemFromServer(temp);
                             adapter.notifyItemRemoved(count);
                             adapter.notifyItemRangeChanged(count, adapter.getItemCount() - count);
-                            // adapter.notifyItemRangeRemoved(count, adapter.getItemCount() - count);
                         }
 
                     }
