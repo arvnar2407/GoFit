@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.transition.Slide;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -27,13 +29,16 @@ public class CategoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_category);
 
         getWindow().setEnterTransition(new Slide(Gravity.TOP).setDuration(1000));
+
+        final Animation animAlpha = AnimationUtils.loadAnimation(this, R.anim.anim_alpha);
         Button button = (Button) findViewById(R.id.catbtn1);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mediaPlayer = MediaPlayer.create(CategoryActivity.this, R.raw.clicks);
-                mediaPlayer.start();
                 Intent intent = new Intent(getApplicationContext(),BeginnerActivity.class);
+                mediaPlayer = MediaPlayer.create(CategoryActivity.this, R.raw.clicks);
+                v.startAnimation(animAlpha);
+                mediaPlayer.start();
                 startActivity(intent);
             }
         });

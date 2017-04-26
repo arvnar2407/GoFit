@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -68,12 +70,14 @@ public class BackActivity extends MainActivity {
 //                Log.d("err","err");
 //            }
 //        });
+        final Animation animScale = AnimationUtils.loadAnimation(this, R.anim.anim_scale);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                 mediaPlayer = MediaPlayer.create(BackActivity.this, R.raw.float2);
+                view.startAnimation(animScale);
                 mediaPlayer.start();
                 startActivity(intent);
                 finish();

@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -42,6 +44,8 @@ public class LaunchFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
     }
 
     @Override
@@ -49,12 +53,17 @@ public class LaunchFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_launch, container, false);
+
+        final Animation animAlpha = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_alpha);
+        final Animation animTrans = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_translate);
+        final Animation animTrans1 = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_translate_y);
         Button go = (Button) view.findViewById(R.id.btn_letsgo);
         go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mediaPlayer = MediaPlayer.create(getActivity(), R.raw.letsgo);
                 mediaPlayer.start();
+                v.startAnimation(animTrans);
                 mListener.onFragmentInteraction(v);
             }
         });
@@ -64,7 +73,8 @@ public class LaunchFragment extends Fragment {
             public void onClick(View v) {
                 mediaPlayer = MediaPlayer.create(getActivity(), R.raw.about);
                 mediaPlayer.start();
-                mListener.onFragmentInteraction(v);
+                v.startAnimation(animTrans1);
+                //mListener.onFragmentInteraction(v);
             }
         });
     return view;

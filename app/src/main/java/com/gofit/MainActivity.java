@@ -22,6 +22,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -53,12 +55,14 @@ MediaPlayer mediaPlayer;
         setContentView(R.layout.activity_main);
         user = FirebaseAuth.getInstance().getCurrentUser();
         createDrawer();
+        final Animation animScale = AnimationUtils.loadAnimation(this, R.anim.anim_scale);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),BackActivity.class);
                 mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.float2);
+                view.startAnimation(animScale);
                 mediaPlayer.start();
                 startActivity(intent);
 
