@@ -115,9 +115,10 @@ public class ExerciseRecycler extends Fragment {
         //navigationListener = (NavigationListener) getActivity();
         recycler.setLayoutManager(layoutManager);
         adapter = new MyAdapter(mParam1,getContext());
+        recycler.setAdapter(adapter);
+       // itemAnimation();
+      //  adapterAnimation();
 
-        itemAnimation();
-        adapterAnimation();
 
 
         MyAdapter.OnItemClickListener listener = new MyAdapter.OnItemClickListener() {

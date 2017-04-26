@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.transition.Slide;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -41,6 +43,7 @@ public class TrackActivity extends MainActivity implements ExerciseRecycler.OnFr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_track);
+        getWindow().setEnterTransition(new Slide(Gravity.RIGHT).setDuration(1000));
         super.createDrawer();
 
         childRef = ref.child("beginner").getRef();
