@@ -85,6 +85,7 @@ public class MyAdapter extends android.support.v7.widget.RecyclerView.Adapter<My
         final HashMap map = (HashMap) selectedList.get(position);
 
         Picasso.with(context).load((String) map.get("imageurl")).into(holder.image);
+        holder.name.setText(map.get("name").toString());
         if (context.getClass().getSimpleName().equals("BeginnerActivity"))
         {
             holder.name.setText(map.get("name").toString());

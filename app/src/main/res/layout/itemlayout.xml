@@ -34,7 +34,7 @@
             android:id="@+id/img1"/>
 
             <TextView
-                android:id="@+id/name1"
+                android:id="@+id/btxt1"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_below="@+id/img1"

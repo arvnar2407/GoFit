@@ -114,7 +114,6 @@ MediaPlayer mediaPlayer;
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),ExerciseListActivity.class);
                 ArrayList shoulderList;
-
                 shoulderList = getSelectedList(shoulder);
                 intent.putExtra("shoulder",shoulderList);
                 mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.textclick);

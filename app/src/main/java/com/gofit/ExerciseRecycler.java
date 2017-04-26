@@ -205,20 +205,29 @@ public class ExerciseRecycler extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.delete:
-                Log.d("hello","hello");
-                for (int i=0;i<mParam1.size();i++)
-                {
-                    HashMap temp = (HashMap) mParam1.get(i);
-                    Boolean temp1 = (Boolean) temp.get("selection");
-                    if (temp1!=null && temp1==true)
-                    {
-                        mParam1.remove(i);
-                        adapter.notifyItemRemoved(i);
-                        adapter.notifyItemRangeChanged(i, adapter.getItemCount() - i);
-                        adapter.notifyItemRangeRemoved(i, adapter.getItemCount() - i);
+                Iterator iter = mParam1.iterator();
+                HashMap temp = null;
+                int count =0;
+                try {
+                    while (iter.hasNext()) {
+
+                        temp = (HashMap) iter.next();
+                        if ((temp.get("selection") !=null && (Boolean) temp.get("selection")==true)) {
+
+                            count = mParam1.indexOf(temp);
+                            iter.remove();
+                            data.removeItemFromServer(temp);
+                            adapter.notifyItemRemoved(count);
+                            adapter.notifyItemRangeChanged(count, adapter.getItemCount() - count);
+                            // adapter.notifyItemRangeRemoved(count, adapter.getItemCount() - count);
+                        }
+
                     }
                 }
-
+                catch (Exception  e)
+                {
+                    Log.d("stack",e.getStackTrace()+"");
+                }
 
         }
 

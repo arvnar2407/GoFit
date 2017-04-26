@@ -2,6 +2,10 @@ package com.gofit;
 
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -16,6 +20,8 @@ public class ExerciseData {
     String youtubelink;
     HashMap map;
     ArrayList list =null;
+    DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference userRef =userRef =ref.child("users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Beginner");
     public ExerciseData(HashMap data)
     {
 //        this.name = name;
@@ -63,5 +69,12 @@ public class ExerciseData {
     public String getLink()
     {
         return youtubelink;
+    }
+
+    public void removeItemFromServer(HashMap temp) {
+        if (temp!=null) {
+            String id = (String) temp.get("id");
+            userRef.child(id).removeValue();
+        }
     }
 }
