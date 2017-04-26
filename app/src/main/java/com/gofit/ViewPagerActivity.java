@@ -8,6 +8,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.ToxicBakery.viewpager.transforms.ABaseTransformer;
+import com.ToxicBakery.viewpager.transforms.AccordionTransformer;
+import com.ToxicBakery.viewpager.transforms.BackgroundToForegroundTransformer;
+import com.ToxicBakery.viewpager.transforms.FlipVerticalTransformer;
+import com.ToxicBakery.viewpager.transforms.RotateDownTransformer;
+import com.ToxicBakery.viewpager.transforms.RotateUpTransformer;
+import com.ToxicBakery.viewpager.transforms.StackTransformer;
+import com.ToxicBakery.viewpager.transforms.TabletTransformer;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -17,6 +26,8 @@ public class ViewPagerActivity extends AppCompatActivity {
     ArrayList selectedList;
     int position;
     HashMap map;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +41,12 @@ public class ViewPagerActivity extends AppCompatActivity {
        map = (HashMap) selectedList.get(position);
 
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
+
         pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
+        pager.setPageTransformer(true, new TabletTransformer() {
+        });
+
+
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
