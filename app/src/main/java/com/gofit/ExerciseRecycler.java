@@ -18,6 +18,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
+import jp.wasabeef.recyclerview.animators.FlipInRightYAnimator;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -110,7 +114,12 @@ public class ExerciseRecycler extends Fragment {
         //navigationListener = (NavigationListener) getActivity();
         recycler.setLayoutManager(layoutManager);
         adapter = new MyAdapter(mParam1,getContext());
-        recycler.setAdapter(adapter);
+       // recycler.setAdapter(adapter);
+
+        itemAnimation();
+        adapterAnimation();
+
+
         MyAdapter.OnItemClickListener listener = new MyAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
@@ -133,6 +142,20 @@ public class ExerciseRecycler extends Fragment {
         return view;
 
 
+    }
+
+    private void adapterAnimation() {
+        AlphaInAnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(adapter);
+        recycler.setAdapter(new AlphaInAnimationAdapter(alphaAdapter));
+    }
+
+    private void itemAnimation() {
+        FlipInRightYAnimator animator = new FlipInRightYAnimator();
+        animator.setAddDuration(800);
+        animator.setRemoveDuration(800);
+        animator.setMoveDuration(800);
+        animator.setChangeDuration(800);
+        recycler.setItemAnimator(animator);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
