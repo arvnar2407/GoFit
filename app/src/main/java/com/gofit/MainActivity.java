@@ -300,7 +300,8 @@ MediaPlayer mediaPlayer;
         } else if (id == R.id.nav_diet) {
             mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.navbut);
             mediaPlayer.start();
-
+            Intent intent = new Intent(getApplicationContext(),DietActivity.class);
+            startActivity(intent);
         }
         else if (id == R.id.logout) {
             FirebaseAuth auth = FirebaseAuth.getInstance();
