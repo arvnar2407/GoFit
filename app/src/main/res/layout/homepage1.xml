@@ -23,6 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CHEST"
+            android:id="@+id/chest"
             android:layout_marginTop="75dp"
             android:layout_marginLeft="19dp"
             android:clickable="true"/>
@@ -40,6 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="OBLIQUES"
+            android:id="@+id/obliques"
             android:layout_marginTop="175dp"
             android:layout_marginLeft="20dp"
             android:clickable="true"/>
@@ -48,6 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="QUADS"
+            android:id="@+id/quads"
             android:layout_marginTop="270dp"
             android:layout_marginLeft="40dp"
             android:clickable="true"/>

@@ -49,6 +49,9 @@ public class MainActivity extends AppCompatActivity
     ArrayList abs=null;
     ArrayList selected =null;
     ArrayList traps = null;
+    ArrayList chest = null;
+    ArrayList obliques = null;
+    ArrayList quads = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +81,9 @@ public class MainActivity extends AppCompatActivity
         abs = new ArrayList();
         selected = new ArrayList();
         traps = new ArrayList();
+        chest = new ArrayList();
+        obliques = new ArrayList();
+        quads = new ArrayList();
 
         final ExerciseData data;
         childRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -106,6 +112,21 @@ public class MainActivity extends AppCompatActivity
                         traps.add(pair.getValue());
 
                     }
+                    else if (pair.getKey().equals("chest"))
+                    {
+                        chest.add(pair.getValue());
+
+                    }
+                    else if (pair.getKey().equals("obliques"))
+                    {
+                        obliques.add(pair.getValue());
+
+                    }
+                    else if (pair.getKey().equals("quads"))
+                    {
+                        quads.add(pair.getValue());
+
+                    }
 
                     it.remove(); // avoids a ConcurrentModificationException
                 }
@@ -121,6 +142,48 @@ public class MainActivity extends AppCompatActivity
         TextView shoulderView = (TextView) findViewById(R.id.shoulder);
         TextView absView = (TextView) findViewById(R.id.abs);
         TextView bicepsView = (TextView) findViewById(R.id.biceps);
+        TextView chestView = (TextView) findViewById(R.id.chest);
+        TextView obliquesView = (TextView) findViewById(R.id.obliques);
+        TextView quadsView = (TextView) findViewById(R.id.quads);
+        quadsView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),ExerciseListActivity.class);
+                ArrayList shoulderList;
+                shoulderList = getSelectedList(quads);
+                intent.putExtra("shoulder",shoulderList);
+                intent.putExtra("type","QUADS");
+                mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.textclick);
+                mediaPlayer.start();
+                startActivity(intent);
+            }
+        });
+        obliquesView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),ExerciseListActivity.class);
+                ArrayList shoulderList;
+                shoulderList = getSelectedList(obliques);
+                intent.putExtra("shoulder",shoulderList);
+                intent.putExtra("type","OBLIQUES");
+                mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.textclick);
+                mediaPlayer.start();
+                startActivity(intent);
+            }
+        });
+        chestView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),ExerciseListActivity.class);
+                ArrayList shoulderList;
+                shoulderList = getSelectedList(chest);
+                intent.putExtra("shoulder",shoulderList);
+                intent.putExtra("type","CHEST");
+                mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.textclick);
+                mediaPlayer.start();
+                startActivity(intent);
+            }
+        });
         shoulderView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
