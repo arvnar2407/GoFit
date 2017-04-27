@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -25,7 +27,7 @@ import java.util.Map;
 public class BackActivity extends MainActivity {
 
     MediaPlayer mediaPlayer;
-
+    ArrayList backData = new ArrayList();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +73,25 @@ public class BackActivity extends MainActivity {
 //            }
 //        });
         final Animation animScale = AnimationUtils.loadAnimation(this, R.anim.anim_scale);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            if (extras.getSerializable("shoulder") != null) {
+                backData = (ArrayList) extras.getSerializable("shoulder");
+            }
+        }
+        TextView view = (TextView) findViewById(R.id.triceps);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),ExerciseListActivity.class);
+                ArrayList traplist;
+                traplist = getSelectedList(traps);
+                intent.putExtra("shoulder",traplist);
+                mediaPlayer = MediaPlayer.create(BackActivity.this, R.raw.textclick);
+                mediaPlayer.start();
+                startActivity(intent);
+            }
+        });
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +112,7 @@ public class BackActivity extends MainActivity {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-        //do nothing
+            //do nothing
         }
     }
 }
