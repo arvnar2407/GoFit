@@ -214,10 +214,14 @@ public class ExerciseRecycler extends Fragment {
                 }
             });
         }
-        menu.findItem(R.id.menu_item_share).setVisible(false);
+
         if(getActivity().getClass().getSimpleName().equals("TrackActivity")) {
-            menu.findItem(R.id.action_search).setVisible(false);
+            menu.findItem(R.id.action_search).setVisible(true);
             menu.findItem(R.id.delete).setVisible(true);
+        }
+        if(getActivity().getClass().getSimpleName().equals("ExerciseListActivity")) {
+            menu.findItem(R.id.action_search).setVisible(false);
+            menu.findItem(R.id.delete).setVisible(false);
         }
         // Fetch and store ShareActionProvider
 

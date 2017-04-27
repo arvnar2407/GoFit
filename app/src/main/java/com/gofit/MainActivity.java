@@ -128,6 +128,7 @@ public class MainActivity extends AppCompatActivity
                 ArrayList shoulderList;
                 shoulderList = getSelectedList(shoulder);
                 intent.putExtra("shoulder",shoulderList);
+                intent.putExtra("type","Shoulder");
                 mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.textclick);
                 mediaPlayer.start();
                 startActivity(intent);
@@ -141,6 +142,7 @@ public class MainActivity extends AppCompatActivity
                 ArrayList shoulderList;
                 shoulderList = getSelectedList(abs);
                 intent.putExtra("shoulder",shoulderList);
+                intent.putExtra("type","Abs");
                 mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.textclick);
                 mediaPlayer.start();
                 startActivity(intent);
@@ -152,6 +154,7 @@ public class MainActivity extends AppCompatActivity
                 Intent intent = new Intent(getApplicationContext(),ExerciseListActivity.class);
                 ArrayList shoulderList;
                 shoulderList = getSelectedList(biceps);
+                intent.putExtra("type","Biceps");
                 intent.putExtra("shoulder",shoulderList);
                 startActivity(intent);
             }

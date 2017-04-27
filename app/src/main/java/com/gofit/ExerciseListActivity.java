@@ -2,6 +2,7 @@ package com.gofit;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.transition.Slide;
@@ -21,6 +22,9 @@ public class ExerciseListActivity extends MainActivity implements NavigationList
         setContentView(R.layout.activity_exercise_list);
         super.createDrawer();
         Bundle extras = getIntent().getExtras();
+        String type = (String) extras.get("type");
+        CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbar.setTitle(type);
         if (extras != null) {
             if (extras.getSerializable("shoulder")!= null)
             {
