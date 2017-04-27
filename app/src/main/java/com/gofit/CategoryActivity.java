@@ -39,6 +39,7 @@ public class CategoryActivity extends AppCompatActivity {
                 mediaPlayer = MediaPlayer.create(CategoryActivity.this, R.raw.clicks);
                 v.startAnimation(animAlpha);
                 mediaPlayer.start();
+                intent.putExtra("type","BEGINNER");
                 startActivity(intent);
             }
         });

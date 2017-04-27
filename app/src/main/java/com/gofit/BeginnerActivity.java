@@ -3,12 +3,14 @@ package com.gofit;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.CollapsibleActionView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -54,6 +56,12 @@ public class BeginnerActivity extends MainActivity implements BeginnerRoutineFra
             mContent = getSupportFragmentManager().getFragment(savedInstanceState, "frag");
         }
         setContentView(R.layout.activity_beginner);
+        Bundle extras = getIntent().getExtras();
+        String type = (String) extras.get("type");
+        CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        if (type!=null && collapsingToolbar!=null)
+            collapsingToolbar.setTitle(type);
+
         super.createDrawer();
         try {
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
