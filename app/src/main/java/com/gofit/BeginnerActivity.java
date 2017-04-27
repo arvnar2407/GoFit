@@ -45,6 +45,8 @@ public class BeginnerActivity extends MainActivity implements BeginnerRoutineFra
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         if(savedInstanceState != null)
         {
 
