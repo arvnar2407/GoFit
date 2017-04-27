@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.TaskStackBuilder;
-import android.support.v4.media.MediaBrowserCompat;
 import android.transition.Slide;
 import android.util.Log;
 import android.view.Gravity;
@@ -44,11 +43,12 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     FirebaseUser user;
-MediaPlayer mediaPlayer;
+    MediaPlayer mediaPlayer;
     ArrayList shoulder = null ;
     ArrayList biceps =null;
     ArrayList abs=null;
     ArrayList selected =null;
+    ArrayList traps = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +62,7 @@ MediaPlayer mediaPlayer;
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),BackActivity.class);
+                intent.putExtra("backlist",traps);
                 mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.float2);
                 view.startAnimation(animScale);
                 mediaPlayer.start();
@@ -76,6 +77,7 @@ MediaPlayer mediaPlayer;
         biceps = new ArrayList();
         abs = new ArrayList();
         selected = new ArrayList();
+        traps = new ArrayList();
 
         final ExerciseData data;
         childRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -98,6 +100,11 @@ MediaPlayer mediaPlayer;
                     else if(pair.getKey().equals("abs"))
                     {
                         abs.add(pair.getValue());
+                    }
+                    else if (pair.getKey().equals("traps"))
+                    {
+                        traps.add(pair.getValue());
+
                     }
 
                     it.remove(); // avoids a ConcurrentModificationException
@@ -206,7 +213,7 @@ MediaPlayer mediaPlayer;
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-           finish();
+            finish();
 
         }
     }
@@ -243,16 +250,20 @@ MediaPlayer mediaPlayer;
             // Handle
             mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.navbut);
             mediaPlayer.start();
-            Intent intent = new Intent(this ,MainActivity.class);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this);
-              intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
-                startActivity(intent, options.toBundle());
+            if (!this.getClass().getSimpleName().equals(MainActivity.class.getSimpleName())) {
+                Intent intent = new Intent(this, MainActivity.class);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this);
 
-            } else {
-               intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
-                startActivity(intent);
-            finish();}
+                    startActivity(intent, options.toBundle());
+                    finish();
+
+                } else {
+
+                    startActivity(intent);
+                    finish();
+                }
+            }
 
         } else if (id == R.id.nav_setr) {
             mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.navbut);
@@ -260,7 +271,7 @@ MediaPlayer mediaPlayer;
             Intent intent = new Intent(this,CategoryActivity.class);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this);
-              intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+                intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
                 startActivity(intent, options.toBundle());
 
             } else {
@@ -276,7 +287,7 @@ MediaPlayer mediaPlayer;
             Intent intent = new Intent(this ,TrackActivity.class);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this);
-               intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+                intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
                 startActivity(intent, options.toBundle());
 
             } else {
@@ -303,9 +314,8 @@ MediaPlayer mediaPlayer;
 
 
         } else if (id == R.id.nav_diet) {
-            mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.navbut);
-            mediaPlayer.start();
-            Intent intent = new Intent(getApplicationContext(),DietActivity.class);
+
+            Intent intent = new Intent(this,DietActivity.class);
             startActivity(intent);
         }
         else if (id == R.id.logout) {
@@ -314,12 +324,15 @@ MediaPlayer mediaPlayer;
             mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.navbut);
             mediaPlayer.start();
             Intent intent = new Intent(this,LoginActivity.class);
-            intent.putExtra("finish", true); // if you are checking for this in your other Activities..
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                    Intent.FLAG_ACTIVITY_CLEAR_TASK |
-                    Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("finish", true);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();
+        }
+        else if (id== R.id.video)
+        {
+            Intent intent = new Intent(this, VideoPlayer.class);
+            startActivity(intent);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

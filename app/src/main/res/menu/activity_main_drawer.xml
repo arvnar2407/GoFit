@@ -24,6 +24,10 @@
             android:icon="@drawable/img5"
             android:title="DIET" />
         <item
+            android:id="@+id/video"
+            android:icon="@drawable/img5"
+            android:title="Motivational Videos" />
+        <item
             android:id="@+id/logout"
             android:icon="@drawable/img8"
             android:title="Logout" />

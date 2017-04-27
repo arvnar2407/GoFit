@@ -16,6 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TRICEPS"
+            android:id="@+id/triceps"
             android:layout_marginTop="98dp"
             android:layout_marginLeft="15dp"
             android:clickable="true"/>
