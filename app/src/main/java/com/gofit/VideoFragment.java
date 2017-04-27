@@ -69,6 +69,7 @@ public class VideoFragment extends Fragment  {
         Bundle args = new Bundle();
         args.putSerializable(ARG_PARAM1, hashMap);
 
+
         fragment.setArguments(args);
         return fragment;
     }
