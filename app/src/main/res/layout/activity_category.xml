@@ -42,6 +42,8 @@
         android:layout_width="300dp"
         android:layout_marginTop="30dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_shape"
+        android:textStyle="bold"
         android:layout_below="@+id/cattext"
         android:layout_centerHorizontal="true"
         android:text="Beginner" />
@@ -51,6 +53,8 @@
         android:layout_width="300dp"
         android:layout_marginTop="30dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_shape"
+        android:textStyle="bold"
         android:layout_below="@+id/catbtn1"
         android:layout_centerHorizontal="true"
         android:text="Intermediate" />
@@ -60,6 +64,8 @@
         android:layout_width="300dp"
         android:layout_marginTop="30dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_shape"
+        android:textStyle="bold"
         android:layout_below="@+id/catbtn2"
         android:layout_centerHorizontal="true"
         android:text="Expert" />

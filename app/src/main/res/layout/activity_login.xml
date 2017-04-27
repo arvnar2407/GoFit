@@ -44,6 +44,7 @@
         android:layout_marginTop="30dp"
         android:layout_height="wrap_content"
         android:background="@drawable/button_shape"
+        android:textStyle="bold"
         android:hint="Enter your email"
         android:inputType="textEmailAddress"
         android:nextFocusDown="@+id/edit_text_password"
@@ -52,7 +53,6 @@
         android:layout_marginRight="20dp"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
-        android:textStyle="bold"
         android:textSize="15.3sp"
         android:layout_below="@+id/loginlogo" />
 
