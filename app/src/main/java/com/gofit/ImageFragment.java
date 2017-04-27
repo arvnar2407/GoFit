@@ -4,12 +4,19 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import pl.droidsonroids.gif.GifImageView;
 
 
 /**
@@ -56,7 +63,7 @@ public class ImageFragment extends Fragment {
     public static ImageFragment newInstance(HashMap hashMap) {
         ImageFragment fragment = new ImageFragment();
         Bundle args = new Bundle();
-
+        args.putSerializable(ARG_PARAM1,hashMap);
         fragment.setArguments(args);
         return fragment;
     }
@@ -74,7 +81,20 @@ public class ImageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_image, container, false);
+
+        View rootView =  inflater.inflate(R.layout.fragment_image, container, false);
+        try {
+
+
+            GifImageView gifs = (GifImageView) rootView.findViewById(R.id.gifcontainer);
+            if (mParam1.get("gif") != null)
+                Glide.with(getContext()).load((String) mParam1.get("gif")).asGif().into(gifs);
+        }
+        catch (Exception e)
+        {
+            Log.d("Viewpager error","Error loading GIF");
+        }
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
