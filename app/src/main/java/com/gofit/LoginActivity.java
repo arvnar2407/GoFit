@@ -38,6 +38,7 @@ import java.util.Arrays;
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     EditText userNameET;
+
     EditText passwordET;
     FirebaseAuth mAuth;
     FirebaseAuth.AuthStateListener mAuthListener;
