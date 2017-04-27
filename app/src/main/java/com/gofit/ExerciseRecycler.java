@@ -116,7 +116,7 @@ public class ExerciseRecycler extends Fragment {
         recycler.setLayoutManager(layoutManager);
         adapter = new MyAdapter(mParam1,getContext());
         recycler.setAdapter(adapter);
-       // itemAnimation();
+       itemAnimation();
       //  adapterAnimation();
 
 
