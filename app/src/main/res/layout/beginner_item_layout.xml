@@ -13,7 +13,7 @@
         app:cardElevation ="10dp"
         app:cardUseCompatPadding ="true"
         android:background="#FFFF8D"
-        app:cardBackgroundColor="#FFD180"
+        app:cardBackgroundColor="#78909C"
         app:theme="@style/Theme.AppCompat.DayNight">
 
 

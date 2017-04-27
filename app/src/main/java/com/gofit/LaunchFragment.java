@@ -74,7 +74,7 @@ public class LaunchFragment extends Fragment {
                 mediaPlayer = MediaPlayer.create(getActivity(), R.raw.about);
                 mediaPlayer.start();
                 v.startAnimation(animTrans1);
-                mListener.onFragmentInteraction(v);
+               mListener.onFragmentInteraction(v);
             }
         });
     return view;
