@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -122,6 +123,10 @@ public class Start_Workout_Fragment1 extends Fragment {
         // Inflate the layout for this fragment
 
         View rootView = inflater.inflate(R.layout.fragment_start__workout1, container, false);
+        SeekBar seekBar = (SeekBar) rootView.findViewById(R.id.seek_bar);
+
+
+
         ImageView image = (ImageView) rootView.findViewById(R.id.strt_img1);
         final HashMap data =(HashMap)mParam1.get(position);
         Picasso.with(getContext()).load((String) data.get("imageurl")).into(image);
@@ -159,6 +164,7 @@ public class Start_Workout_Fragment1 extends Fragment {
                 else
                 {
                     chrono.start();
+
                 }
             }
         });

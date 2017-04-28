@@ -52,6 +52,10 @@ public class MainActivity extends AppCompatActivity
     ArrayList chest = null;
     ArrayList obliques = null;
     ArrayList quads = null;
+    ArrayList lats = null;
+    ArrayList lowerback = null;
+    ArrayList harmstring = null;
+    ArrayList calves = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +88,10 @@ public class MainActivity extends AppCompatActivity
         chest = new ArrayList();
         obliques = new ArrayList();
         quads = new ArrayList();
-
+        lats = new ArrayList();
+        lowerback = new ArrayList();
+        harmstring = new ArrayList();
+        calves = new ArrayList();
         final ExerciseData data;
         childRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -125,6 +132,26 @@ public class MainActivity extends AppCompatActivity
                     else if (pair.getKey().equals("quads"))
                     {
                         quads.add(pair.getValue());
+
+                    }
+                    else if (pair.getKey().equals("lats"))
+                    {
+                        lats.add(pair.getValue());
+
+                    }
+                    else if (pair.getKey().equals("lowerback"))
+                    {
+                        lowerback.add(pair.getValue());
+
+                    }
+                    else if (pair.getKey().equals("calves"))
+                    {
+                        calves.add(pair.getValue());
+
+                    }
+                    else if (pair.getKey().equals("harmstring"))
+                    {
+                        harmstring.add(pair.getValue());
 
                     }
 
@@ -381,7 +408,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_diet) {
 
-            Intent intent = new Intent(this,DietActivity.class);
+            Intent intent = new Intent(this,DietMain.class);
             startActivity(intent);
         }
         else if (id == R.id.logout) {

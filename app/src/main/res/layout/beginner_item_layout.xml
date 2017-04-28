@@ -49,7 +49,7 @@
                 android:layout_marginTop="20dp"
                 android:textSize="20sp"
                 android:layout_marginLeft="15dp"
-                android:text="arvind"
+                android:text=""
                 android:layout_toRightOf="@+id/img1"
                 />
 

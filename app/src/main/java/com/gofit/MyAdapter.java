@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.google.android.gms.vision.text.Text;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -86,13 +87,17 @@ public class MyAdapter extends android.support.v7.widget.RecyclerView.Adapter<My
 
         Picasso.with(context).load((String) map.get("imageurl")).into(holder.image);
         holder.name.setText(map.get("name").toString());
+
         if (context.getClass().getSimpleName().equals("BeginnerActivity"))
         {
             holder.name.setText(map.get("name").toString());
+            if (holder.timerText!=null)
+                holder.timerText.setText("Time : 10:00");
         }
         else if (context.getClass().getSimpleName().equals("TrackActivity"))
         {
             holder.name.setText(map.get("name").toString());
+            holder.timerText.setText("Time : "+map.get("time").toString());
             holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -124,6 +129,7 @@ public class MyAdapter extends android.support.v7.widget.RecyclerView.Adapter<My
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView image;
         public TextView name;
+        TextView timerText;
         public TextView description;
         CheckBox checkBox;
         int row_index=0;
@@ -132,6 +138,7 @@ public class MyAdapter extends android.support.v7.widget.RecyclerView.Adapter<My
             name = (TextView) itemView.findViewById(R.id.btxt1);
             image = (ImageView) itemView.findViewById(R.id.img1);
             checkBox = (CheckBox) itemView.findViewById(R.id.checkbox);
+            timerText = (TextView) itemView.findViewById(R.id.btxt2);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

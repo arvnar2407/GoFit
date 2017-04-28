@@ -80,18 +80,79 @@ public class BackActivity extends MainActivity {
             }
         }
         TextView view = (TextView) findViewById(R.id.triceps);
+        TextView harmStringview = (TextView) findViewById(R.id.harmstring);
+        TextView latsview = (TextView) findViewById(R.id.lats);
+        TextView lowerbackview = (TextView) findViewById(R.id.lowerback);
+        TextView calvesview = (TextView) findViewById(R.id.calves);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),ExerciseListActivity.class);
                 ArrayList traplist;
-                traplist = getSelectedList(traps);
-                intent.putExtra("shoulder",traplist);
-                mediaPlayer = MediaPlayer.create(BackActivity.this, R.raw.textclick);
-                mediaPlayer.start();
-                startActivity(intent);
+                if (traps!=null && traps.size()>0) {
+                    traplist = getSelectedList(traps);
+                    intent.putExtra("shoulder", traplist);
+                    mediaPlayer = MediaPlayer.create(BackActivity.this, R.raw.textclick);
+                    mediaPlayer.start();
+                    startActivity(intent);
+                }
             }
         });
+        harmStringview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),ExerciseListActivity.class);
+                ArrayList templist;
+                if (harmstring!=null && harmstring.size()>0) {
+                    templist = getSelectedList(harmstring);
+                    intent.putExtra("shoulder", templist);
+                    mediaPlayer = MediaPlayer.create(BackActivity.this, R.raw.textclick);
+                    mediaPlayer.start();
+                    startActivity(intent);
+                }
+            }
+        });
+//        latsview.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getApplicationContext(),ExerciseListActivity.class);
+//                ArrayList templist;
+//                if (lats!=null && lats.size()>0) {
+//                    templist = getSelectedList(lats);
+//                    intent.putExtra("shoulder", templist);
+//                    mediaPlayer = MediaPlayer.create(BackActivity.this, R.raw.textclick);
+//                    mediaPlayer.start();
+//                    startActivity(intent);
+//                }
+//            }
+//        });
+        lowerbackview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),ExerciseListActivity.class);
+                ArrayList templist;
+                if (lowerback!=null && lowerback.size()>0) {
+                    templist = getSelectedList(lowerback);
+                    intent.putExtra("shoulder", templist);
+                    mediaPlayer = MediaPlayer.create(BackActivity.this, R.raw.textclick);
+                    mediaPlayer.start();
+                    startActivity(intent);
+                }
+            }
+        });
+//        calvesview.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getApplicationContext(),ExerciseListActivity.class);
+//                ArrayList templist = null;
+//                if (calves!=null && calves.size()>0)
+//                templist = getSelectedList(calves);
+//                intent.putExtra("shoulder",templist);
+//                mediaPlayer = MediaPlayer.create(BackActivity.this, R.raw.textclick);
+//                mediaPlayer.start();
+//                startActivity(intent);
+//            }
+//        });
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

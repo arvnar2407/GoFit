@@ -32,6 +32,18 @@ public class CategoryActivity extends AppCompatActivity {
 
         final Animation animAlpha = AnimationUtils.loadAnimation(this, R.anim.anim_alpha);
         Button button = (Button) findViewById(R.id.catbtn1);
+        Button interm = (Button) findViewById(R.id.catbtn2);
+//        interm.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getApplicationContext(),BeginnerActivity.class);
+//                mediaPlayer = MediaPlayer.create(CategoryActivity.this, R.raw.clicks);
+//                v.startAnimation(animAlpha);
+//                mediaPlayer.start();
+//                intent.putExtra("type","INTERMEDIATE");
+//                startActivity(intent);
+//            }
+//        });
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
