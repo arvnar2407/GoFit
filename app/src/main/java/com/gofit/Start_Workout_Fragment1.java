@@ -9,6 +9,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
@@ -132,6 +134,7 @@ public class Start_Workout_Fragment1 extends Fragment {
         Picasso.with(getContext()).load((String) data.get("imageurl")).into(image);
         Button begin = (Button) rootView.findViewById(R.id.strt_btn1);
         Button done = (Button) rootView.findViewById(R.id.strt_btn2);
+        final Animation animAlpha = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_alpha);
         chrono = ((Chronometer) rootView.findViewById(R.id.strt_chrono));
         chrono.setText("00:00");
 
@@ -174,6 +177,7 @@ public class Start_Workout_Fragment1 extends Fragment {
                chrono.stop();
                 long elapsedMillis = SystemClock.elapsedRealtime() - chrono.getBase();
                 String chronoText = chrono.getText().toString();
+                v.startAnimation(animAlpha);
                 String array[] = chronoText.split(":");
 
                 data.put("time",array[0]+":"+array[1]);
