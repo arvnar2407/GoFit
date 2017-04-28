@@ -11,6 +11,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.widget.ImageView;
 
 public class LaunchFragment extends Fragment {
 
@@ -53,7 +54,8 @@ public class LaunchFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_launch, container, false);
-
+        final ImageView logo = (ImageView) view.findViewById(R.id.loginlogo1st);
+        logo.setTransitionName("shared");
         final Animation animAlpha = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_alpha);
         final Animation animTrans = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_translate);
         final Animation animTrans1 = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_translate_y);
@@ -64,7 +66,7 @@ public class LaunchFragment extends Fragment {
                 mediaPlayer = MediaPlayer.create(getActivity(), R.raw.letsgo);
                 mediaPlayer.start();
                 v.startAnimation(animTrans);
-                mListener.onFragmentInteraction(v);
+                mListener.onFragmentInteraction(v,logo);
             }
         });
         Button about = (Button) view.findViewById(R.id.btn_about);
@@ -74,7 +76,7 @@ public class LaunchFragment extends Fragment {
                 mediaPlayer = MediaPlayer.create(getActivity(), R.raw.about);
                 mediaPlayer.start();
                 v.startAnimation(animTrans1);
-               mListener.onFragmentInteraction(v);
+               mListener.onFragmentInteraction(v,logo);
             }
         });
     return view;
@@ -83,7 +85,7 @@ public class LaunchFragment extends Fragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(View uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+           // mListener.onFragmentInteraction(uri);
         }
     }
 
@@ -116,6 +118,6 @@ public class LaunchFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(View v);
+        void onFragmentInteraction(View v , ImageView shared);
     }
 }

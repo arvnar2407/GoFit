@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 public class LaunchscreenActivity extends AppCompatActivity implements LaunchFragment.OnFragmentInteractionListener{
     MediaPlayer mediaPlayer;
@@ -23,7 +24,7 @@ public class LaunchscreenActivity extends AppCompatActivity implements LaunchFra
     }
 
     @Override
-    public void onFragmentInteraction(View v) {
+    public void onFragmentInteraction(View v, ImageView sharedView) {
         if (v.getId() == R.id.btn_letsgo)
         {
             Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
@@ -31,7 +32,13 @@ public class LaunchscreenActivity extends AppCompatActivity implements LaunchFra
         }
         else if (v.getId()==R.id.btn_about)
         {
-            getSupportFragmentManager().beginTransaction().replace(R.id.launch,AboutFragment.newInstance()).addToBackStack(null).commit();
+            AboutFragment fragment = AboutFragment.newInstance();
+
+            fragment.setSharedElementEnterTransition(new DetailsTransition());
+            fragment.setEnterTransition(new android.transition.Fade());
+            fragment.setExitTransition(new android.transition.Fade());
+            fragment.setSharedElementReturnTransition(new DetailsTransition());
+            getSupportFragmentManager().beginTransaction().addSharedElement(sharedView,"shared").replace(R.id.launch,fragment).addToBackStack(null).commit();
         }
 
     }
