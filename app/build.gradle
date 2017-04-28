@@ -10,7 +10,7 @@ android {
         applicationId "com.gofit"
         minSdkVersion 21
         targetSdkVersion 25
-        multiDexEnabled = true
+        multiDexEnabled =true
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
