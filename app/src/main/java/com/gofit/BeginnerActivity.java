@@ -61,11 +61,12 @@ public class BeginnerActivity extends MainActivity implements BeginnerRoutineFra
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         if (type!=null && collapsingToolbar!=null)
             collapsingToolbar.setTitle(type);
-
+        if (type.equals("EXPERT"))
+            type = "beginner";
         super.createDrawer();
         try {
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-            childRef = ref.child("beginner").getRef();
+            childRef = ref.child(type.toLowerCase()).getRef();
             userRef = ref.child("users/" + FirebaseAuth.getInstance().getCurrentUser().getUid());
             userRef.child("Beginner").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -161,7 +162,7 @@ public class BeginnerActivity extends MainActivity implements BeginnerRoutineFra
 
     @Override
     public void beginWorkout(ArrayList list, int size) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.beginnercontainer, Start_Workout_Fragment1.newInstance(list,size)).addToBackStack(null).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.beginnercontainer, Start_Workout_Fragment1.newInstance(list,0)).addToBackStack(null).commit();
     }
 
     @Override
