@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#BBDEFB"
+    android:background="@drawable/rvideo"
     tools:context="com.gofit.ImageFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -13,16 +13,18 @@
         android:text= "GIF"
         android:textStyle="bold"
         android:textSize="40dp"
+        android:textColor="#FFFFFF"
         android:textAlignment="center"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="40dp"/>
 
 
     <pl.droidsonroids.gif.GifImageView
-        android:layout_width="300dp"
+        android:layout_width="320dp"
         android:id="@+id/gifcontainer"
         android:layout_height="400dp"
+        android:scaleY="1.2"
         android:layout_marginTop="100dp"
-        android:layout_marginLeft="55dp"
+        android:layout_marginLeft="50dp"
         android:src="@drawable/gif"/>
             />
 

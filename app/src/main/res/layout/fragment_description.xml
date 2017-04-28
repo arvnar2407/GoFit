@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#EEFF44">
+        android:background="@drawable/rvideo">
 
     <!-- TODO: Update blank fragment layout -->
         <TextView
@@ -16,6 +16,7 @@
             android:layout_height="wrap_content"
             android:text= "DESCRIPTION"
             android:textStyle="bold"
+            android:textColor="#FFFFFF"
             android:textSize="40dp"
             android:textAlignment="center"
             android:layout_marginTop="20dp"/>
@@ -41,6 +42,8 @@
             android:textSize="16sp"
             android:inputType="textMultiLine"
         android:text="@string/hello_blank_fragment"
+            android:textColor="#FFFFFF"
+
         android:id="@+id/description"/>
     </ScrollView>
 
