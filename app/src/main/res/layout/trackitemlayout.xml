@@ -46,7 +46,7 @@
                 android:layout_height="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="10dp"
-                android:text="arvind"
+                android:text=""
                 android:layout_toRightOf="@+id/img1"
                 />
             <CheckBox
