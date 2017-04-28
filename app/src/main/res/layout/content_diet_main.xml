@@ -40,7 +40,7 @@
         android:layout_width="300dp"
         android:layout_height="100dp"
         android:id="@+id/button4"
-        android:background="@drawable/Supplements1"
+        android:background="@drawable/supplements1"
         android:layout_marginTop="25dp"
         android:layout_below="@+id/button3"
         android:layout_centerHorizontal="true"
