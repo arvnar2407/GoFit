@@ -6,14 +6,14 @@
 
     <item android:id="@+id/action_search"
         android:title="Search"
-        android:icon="@drawable/search"
+        android:icon="@drawable/searchicon"
         app:showAsAction="always|collapseActionView"
         app:actionViewClass="android.support.v7.widget.SearchView"/>
     <item android:id="@+id/delete"
         android:titleCondensed="Delete"
         android:title="Sort By Name"
         app:showAsAction="always|collapseActionView"
-        android:icon="@drawable/delete"
+        android:icon="@drawable/deletewhite"
         android:visible="false"/>
 
 </menu>

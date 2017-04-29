@@ -1,11 +1,11 @@
 package com.gofit;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.SeekBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
@@ -38,6 +37,7 @@ public class Start_Workout_Fragment1 extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     String timerText=null;
+    final int[] isRunning = new int[1];
     Chronometer chrono;
     long timeWhenStopped = 0;
     int position =0;
@@ -88,12 +88,12 @@ public class Start_Workout_Fragment1 extends Fragment {
         super.onSaveInstanceState(outState);
         System.out.println("TAG, onSavedInstanceState");
 
-        chrono.stop();
-        timeWhenStopped = chrono.getBase() - SystemClock.elapsedRealtime();
-
-        timerText = chrono.getText().toString();
-        outState.putString("savedText", timerText);
-        outState.putLong("stopTime",timeWhenStopped);
+//        chrono.stop();
+//        timeWhenStopped = chrono.getBase() - SystemClock.elapsedRealtime();
+//
+//        timerText = chrono.getText().toString();
+//        outState.putString("savedText", timerText);
+//        outState.putLong("stopTime",timeWhenStopped);
     }
 
     @Override
@@ -101,11 +101,11 @@ public class Start_Workout_Fragment1 extends Fragment {
         super.onViewStateRestored(savedInstanceState);
         if (savedInstanceState!=null)
         {
-            timerText = savedInstanceState.get("savedText").toString();
-            timeWhenStopped = (long) savedInstanceState.get("stopTime");
-            chrono.setText(timerText);
-            chrono.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
-            chrono.start();
+//            timerText = savedInstanceState.get("savedText").toString();
+//            timeWhenStopped = (long) savedInstanceState.get("stopTime");
+//            chrono.setText(timerText);
+//            chrono.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+//            chrono.start();
         }
     }
 
@@ -125,48 +125,79 @@ public class Start_Workout_Fragment1 extends Fragment {
         // Inflate the layout for this fragment
 
         View rootView = inflater.inflate(R.layout.fragment_start__workout1, container, false);
-        SeekBar seekBar = (SeekBar) rootView.findViewById(R.id.seek_bar);
-
-
-
+        final SeekBar seekBar = (SeekBar) rootView.findViewById(R.id.strt_seek);
         ImageView image = (ImageView) rootView.findViewById(R.id.strt_img1);
         final HashMap data =(HashMap)mParam1.get(position);
         Picasso.with(getContext()).load((String) data.get("imageurl")).into(image);
         Button begin = (Button) rootView.findViewById(R.id.strt_btn1);
         Button done = (Button) rootView.findViewById(R.id.strt_btn2);
+
         final Animation animAlpha = AnimationUtils.loadAnimation(getActivity(), R.anim.anim_alpha);
         chrono = ((Chronometer) rootView.findViewById(R.id.strt_chrono));
         chrono.setText("00:00");
+        seekBar.setMax(50);
 
-        chrono.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
-            @Override
-            public void onChronometerTick(Chronometer chronometer) {
-                long time = SystemClock.elapsedRealtime() - chronometer.getBase();
-                int h   = (int)(time /3600000);
-                int m = (int)(time - h*3600000)/60000;
-                int s= (int)(time - h*3600000- m*60000)/1000 ;
-                String hh = h < 10 ? "0"+h: h+"";
-                String mm = m < 10 ? "0"+m: m+"";
-                String ss = s < 10 ? "0"+s: s+"";
-                chrono.setText(mm+":"+ss);
-                if( chronometer.getText().toString().equalsIgnoreCase("00:10")) {
-                    Toast.makeText(getContext(),
-                            "time reached", Toast.LENGTH_SHORT).show();
-                    chrono.stop();
+        isRunning[0] = 0;
+        try {
+            chrono.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+                @Override
+                public void onChronometerTick(Chronometer chronometer) {
+                    long time = SystemClock.elapsedRealtime() - chronometer.getBase();
+                    int h = (int) (time / 3600000);
+                    int m = (int) (time - h * 3600000) / 60000;
+                    int s = (int) (time - h * 3600000 - m * 60000) / 1000;
+                    String hh = h < 10 ? "0" + h : h + "";
+                    String mm = m < 10 ? "0" + m : m + "";
+                    String ss = s < 10 ? "0" + s : s + "";
+                    chrono.setText(mm + ":" + ss);
+                    seekBar.incrementProgressBy(s);
+                   // seekBar.setProgress(10);
+                    if (chronometer.getText().toString().equalsIgnoreCase("00:10")) {
+                        Toast.makeText(getContext(),
+                                "time reached", Toast.LENGTH_SHORT).show();
+                        chrono.stop();
+                        isRunning[0] = 1;
+                    }
                 }
-            }
-        });
-
+            });
+        }
+        catch (Exception e)
+        {
+            Log.d("exception","chrono"+e.getStackTrace());
+        }
         begin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (timeWhenStopped ==0){
                 chrono.setBase(SystemClock.elapsedRealtime());
                 chrono.start();
+
+                }
+                else if (isRunning[0]==2)
+                {
+                    int h = (int) (timeWhenStopped / 3600000);
+                    int m = (int) (timeWhenStopped - h * 3600000) / 60000;
+                    int s = (int) (timeWhenStopped - h * 3600000 - m * 60000) / 1000;
+                    long time = SystemClock.elapsedRealtime();
+                    int hh = (int) (time / 3600000);
+                    int mh = (int) (time - h * 3600000) / 60000;
+                    int ss = (int) (time - h * 3600000 - m * 60000) / 1000;
+                    //chrono.setBase(SystemClock.elapsedRealtime() - timeWhenStopped);
+                    if (s<10)
+                        chronoStart();
+
+                    isRunning[0]=0;
                 }
                 else
                 {
-                    chrono.start();
+                    Long temp = SystemClock.elapsedRealtime() - chrono.getBase() ;
+                    int h = (int) (temp / 3600000);
+                    int m = (int) (temp - h * 3600000) / 60000;
+                    int s = (int) (temp - h * 3600000 - m * 60000) / 1000;
+                    if (s<10) {
+                        chrono.start();
+                        seekBar.setProgress(s);
+                    }
 
                 }
             }
@@ -218,19 +249,49 @@ public class Start_Workout_Fragment1 extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        chrono.stop();
-        timeWhenStopped = chrono.getBase() - SystemClock.elapsedRealtime();
-
+//        chrono.stop();
+//        if (isRunning[0] != 1)
+//            timeWhenStopped = chrono.getBase() - SystemClock.elapsedRealtime();
+        chronoPause();
         timerText = chrono.getText().toString();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (chrono!=null && timerText!=null)
-            chrono.setText(timerText);
-            chrono.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+        if (chrono!=null && timerText!=null) {
 
+
+            chrono.setText(timerText);
+            isRunning[0]=2;
+//            if (isRunning[0] != 1)
+//                chrono.setBase(SystemClock.elapsedRealtime() + timeWhenStopped);
+            chrono.stop();
+        }
+    }
+    private void chronoStart()
+    {
+        // on first start
+        if ( timeWhenStopped == 0 )
+            chrono.setBase( SystemClock.elapsedRealtime() );
+            // on resume after pause
+        else
+        {
+           // long intervalOnPause = (SystemClock.elapsedRealtime() - timeWhenStopped);
+            chrono.setBase( SystemClock.elapsedRealtime() - timeWhenStopped );
+        }
+
+        chrono.start();
+    }
+
+    private void chronoPause()
+    {
+        chrono.stop();
+        //timeWhenStopped = chrono.getBase() - SystemClock.elapsedRealtime();
+        timeWhenStopped = SystemClock.elapsedRealtime() - chrono.getBase() ;
+        int h = (int) (timeWhenStopped / 3600000);
+        int m = (int) (timeWhenStopped - h * 3600000) / 60000;
+        int s = (int) (timeWhenStopped - h * 3600000 - m * 60000) / 1000;
     }
 
     /**

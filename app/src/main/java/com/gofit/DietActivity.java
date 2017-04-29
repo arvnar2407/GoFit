@@ -77,6 +77,7 @@ public class DietActivity extends AppCompatActivity implements DietFragment.OnFr
         }
 
 
+
         pageCurlView.setCurlView(pages_id);
         pageCurlView.setCurlSpeed(65);
      //   getSupportFragmentManager().beginTransaction().replace(R.id.dietcontainer,DietFragment.newInstance()).addToBackStack(null).commit();

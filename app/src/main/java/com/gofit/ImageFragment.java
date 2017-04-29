@@ -89,6 +89,8 @@ public class ImageFragment extends Fragment {
             GifImageView gifs = (GifImageView) rootView.findViewById(R.id.gifcontainer);
             if (mParam1.get("gif") != null)
                 Glide.with(getContext()).load((String) mParam1.get("gif")).asGif().into(gifs);
+            else if (mParam1.get("imageurl") !=null)
+                Picasso.with(getContext()).load((String) mParam1.get("imageurl")).into(gifs);
         }
         catch (Exception e)
         {
