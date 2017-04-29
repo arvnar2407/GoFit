@@ -41,7 +41,6 @@ public class ViewPagerActivity extends AppCompatActivity {
        map = (HashMap) selectedList.get(position);
 
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
-
         pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
         pager.setPageTransformer(true, new TabletTransformer() {
         });
